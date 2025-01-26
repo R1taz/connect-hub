@@ -4,12 +4,13 @@ import './index.css'
 import App from './App.tsx'
 import { BrowserRouter } from 'react-router-dom'
 import { ThemeProvider } from '@emotion/react'
-import { colorTheme } from './theme/colorTheme.tsx'
+import { theme } from './theme/theme.tsx'
+
 
 createRoot(document.getElementById('root')!).render(
 	<StrictMode>
 		<BrowserRouter>
-			<ThemeProvider theme={colorTheme}>
+			<ThemeProvider theme={theme}>
 				<App />
 			</ThemeProvider>
 		</BrowserRouter>
