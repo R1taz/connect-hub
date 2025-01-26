@@ -1,6 +1,5 @@
 import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps'
 import { BASE_COORDINATES } from '../../constants/constants'
-import styles from './styles.modules.css'
 
 const MapComponent = () => {
 	return (
