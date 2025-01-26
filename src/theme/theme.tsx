@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material'
 
-export const colorTheme = createTheme({
+export const theme = createTheme({
 	typography: {
 		h1: {
 			fontFamily: 'ActayWide, sans-serif',

@@ -25,7 +25,6 @@ const Navigation = () => {
 			<NavLink to='/login' className={`${styles.entrance} ${styles.link}`}>
 				Войти
 			</NavLink>
-			<NavLink to='/test'>Test</NavLink>
 		</Box>
 	)
 }

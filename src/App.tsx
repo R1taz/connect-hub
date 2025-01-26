@@ -1,8 +1,8 @@
 import { Route, Routes } from 'react-router-dom'
 import Layout from './layout/Layout'
-import Main from './pages/Main/Main'
-import Registration from './pages/Registration/Registration'
-import Authorization from './pages/Authorization/Authorization'
+import Main from './pages/MainPage/MainPage'
+import Registration from './pages/RegistrationPage/RegistrationPage'
+import Authorization from './pages/AuthorizationPage/AuthorizationPage'
 import MapPage from './pages/MapPage/MapPage'
 import Contacts from './pages/Contacts/Contacts'
 

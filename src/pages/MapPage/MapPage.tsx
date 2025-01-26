@@ -1,14 +1,10 @@
-import { Divider, Grid2 } from '@mui/material'
+import { Divider, Grid2, Typography } from '@mui/material'
 import Title from '../../components/Main/Title/Title'
 import MapComponent from '../../components/MapComponent/MapComponent'
 import { CustomButton } from '../../components/ui/Button'
 import Supports from '../../components/MapComponent/Supports/Supports'
 import SubInformation from '../../components/MapComponent/SubInformation/SubInformation'
 import Footer from '../../components/Main/Footer/Footer'
-import { Divider, Grid2, Typography } from '@mui/material'
-import Title from '../../components/Main/Title/Title'
-import MapComponent from '../../components/MapComponent/MapComponent'
-
 
 const MapPage = () => {
 	return (

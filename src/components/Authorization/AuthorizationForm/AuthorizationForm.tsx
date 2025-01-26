@@ -65,7 +65,7 @@ const AuthorizationForm = () => {
 						Войти
 					</CustomButton>
 
-					<Box sx={{ display: 'flex' }}>
+					<Box sx={{ display: 'flex', alignItems: 'center' }}>
 						<Typography>Нет аккаунта?</Typography>
 						<NavLink to='' style={{ marginLeft: '4px' }}>
 							Запросить аккаунт
