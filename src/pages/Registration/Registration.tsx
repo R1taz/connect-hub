@@ -1,6 +1,6 @@
 import { Grid2, Typography } from '@mui/material'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
-import Form from '../../components/Registration/Form/Form'
+import RegistrationForm from '../../components/Registration/RegistrationForm/RegistrationForm'
 
 const Registration = () => {
 	return (
@@ -20,7 +20,7 @@ const Registration = () => {
 					детали и ответить на любые возникшие вопросы.
 				</Typography>
 
-				<Form />
+				<RegistrationForm />
 			</Grid2>
 		</Grid2>
 	)

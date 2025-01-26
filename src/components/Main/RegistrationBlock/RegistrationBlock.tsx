@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import styles from './styles.module.css'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 
-const Registration = () => {
+const RegistrationBlock = () => {
 	return (
 		<Grid2 container sx={{ mt: 5 }}>
 			<Grid2 size={3}>
@@ -16,10 +16,16 @@ const Registration = () => {
 					помочь вам с регистрацией.
 				</Typography>
 				<Box sx={{ display: 'flex', mt: 1 }}>
-					<Typography sx={{ color: 'gray', marginRight: '5px' }}>
-						Аккаунт создан?
-					</Typography>
 					<NavLink className={styles.entrance} to='/login'>
+						<Typography
+							sx={{
+								display: 'inline-block',
+								color: 'gray',
+								marginRight: '5px',
+							}}
+						>
+							Аккаунт создан?
+						</Typography>
 						Войти
 					</NavLink>
 				</Box>
@@ -38,4 +44,4 @@ const Registration = () => {
 	)
 }
 
-export default Registration
+export default RegistrationBlock
