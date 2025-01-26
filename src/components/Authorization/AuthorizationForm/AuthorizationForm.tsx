@@ -1,18 +1,41 @@
-import { Box, TextField, Typography } from '@mui/material'
+import { Box, TextField, Typography, useTheme } from '@mui/material'
 import { Formik, ErrorMessage, Form } from 'formik'
 import styles from './styles.module.css'
 import { CustomButton } from '../../ui/Button'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { entranceSchema } from '../../../helpers/validateEntrance'
+import { BASE_URL } from '../../../constants/constants'
 
 const AuthorizationForm = () => {
+	const theme = useTheme()
+	const navigate = useNavigate()
+
 	return (
 		<Formik
 			initialValues={{
 				login: '',
 				password: '',
 			}}
-			/* validate={} */
-			onSubmit={(values, { setSubmitting }) => {
+			validationSchema={entranceSchema}
+			onSubmit={async (values, { setSubmitting }) => {
+				const response = await axios.post(`${BASE_URL}/login`, values)
+
+				if (response.data.result_code) {
+					if (response.data.role === 1) {
+						console.log(1)
+					}
+					if (response.data.role === 2) {
+						console.log(2)
+					}
+					if (response.data.role === 3) {
+						console.log(3)
+					}
+					navigate('/')
+				} else {
+					alert('ошибка')
+				}
+
 				console.log(values)
 				setSubmitting(false)
 			}}
@@ -51,9 +74,26 @@ const AuthorizationForm = () => {
 					/>
 					<ErrorMessage name='telephone' component='div' />
 
-					<NavLink to='/registration'>
-						<Typography sx={{ color: 'gray' }}>
-							Забыли пароль? Восстановить
+					<NavLink to=''>
+						<Typography
+							sx={{
+								display: 'inline-block',
+								color: theme.palette.secondary.main,
+							}}
+						>
+							Забыли пароль?
+						</Typography>{' '}
+						<Typography
+							sx={{
+								color: theme.palette.secondary.main,
+								display: 'inline-block',
+								textDecoration: 'none',
+								borderBottom: '1px solid',
+								borderColor: theme.palette.secondary.main,
+								paddingBottom: '0.1px',
+							}}
+						>
+							Восстановить
 						</Typography>
 					</NavLink>
 
@@ -66,8 +106,16 @@ const AuthorizationForm = () => {
 					</CustomButton>
 
 					<Box sx={{ display: 'flex', alignItems: 'center' }}>
-						<Typography>Нет аккаунта?</Typography>
-						<NavLink to='' style={{ marginLeft: '4px' }}>
+						<Typography sx={{ color: theme.palette.secondary.main }}>
+							Нет аккаунта?
+						</Typography>
+						<NavLink
+							to='/registration'
+							style={{
+								marginLeft: '4px',
+								color: theme.palette.primary.main,
+							}}
+						>
 							Запросить аккаунт
 						</NavLink>
 					</Box>

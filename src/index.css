@@ -19,6 +19,7 @@
 body {
 	font-family: 'Cygre', sans-serif;
 	margin: 60;
+	overflow-x: hidden;
 }
 
 p {

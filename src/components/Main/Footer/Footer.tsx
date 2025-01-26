@@ -1,8 +1,10 @@
-import { Box, Divider, Grid2, Stack, Typography } from '@mui/material'
+import { Box, Divider, Grid2, Stack, Typography, useTheme } from '@mui/material'
 import logoSVG from '../../../assets/logo.svg'
 import styles from './styles.module.css'
 
 const Footer = () => {
+	const theme = useTheme()
+
 	return (
 		<>
 			<Grid2 container sx={{ mt: 30 }}>
@@ -11,21 +13,25 @@ const Footer = () => {
 				</Grid2>
 
 				<Grid2 size={4}>
-					<Typography>Навигация</Typography>
+					<Typography sx={{ color: theme.palette.secondary.main }}>
+						Навигация
+					</Typography>
 
-					<Stack>
+					<Stack sx={{ mt: 2 }}>
 						<Typography>Главная</Typography>
 						<Typography>О нас</Typography>
 						<Typography>Контакты</Typography>
 					</Stack>
 
-					<Typography>Адрес</Typography>
-					<Typography>1 rue du mail, 75002, Paris, France</Typography>
+					<Typography sx={{ mt: 3, color: theme.palette.secondary.main }}>
+						Адрес
+					</Typography>
+					<Typography sx={{ mt: 1 }}>Город, Улица, Дом</Typography>
 				</Grid2>
 
 				<Grid2 size={4}>
-					<Typography>media@info.com</Typography>
-					<Typography>
+					<Typography>XXX@info.com</Typography>
+					<Typography sx={{ mt: 1 }}>
 						Вы также можете связаться с нами по электронной почте!
 					</Typography>
 				</Grid2>
@@ -35,6 +41,8 @@ const Footer = () => {
 
 			<Divider
 				sx={{
+					backgroundColor: 'black',
+					borderWidth: '1px',
 					mt: 6,
 					mb: 3,
 				}}

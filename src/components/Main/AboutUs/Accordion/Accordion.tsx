@@ -38,7 +38,7 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
 		marginLeft: theme.spacing(1),
 	},
 	...theme.applyStyles('dark', {
-		backgroundColor: 'rgba(77, 62, 62, 0.05)',
+		backgroundColor: 'rgba(0, 0, 0, 0.05)',
 	}),
 	padding: '10px 0px',
 }))
