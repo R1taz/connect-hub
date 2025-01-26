@@ -68,7 +68,13 @@ export default function CustomizedAccordions() {
 					<Typography component='span'>ОТСЛЕЖИВАНИЕ СОСТОЯНИЯ ОПОР</Typography>
 				</AccordionSummary>
 				<AccordionDetails>
-					<Typography>Текст</Typography>
+					<Typography>
+						Мы проводим регулярные обследования опор линий электропередачи,
+						чтобы выявить возможные проблемы и предотвратить аварийные ситуации.
+						Наши специалисты используют современное оборудование и методы,
+						которые позволяют получить точные и достоверные данные о состоянии
+						опор.
+					</Typography>
 				</AccordionDetails>
 			</Accordion>
 
@@ -82,7 +88,12 @@ export default function CustomizedAccordions() {
 					<Typography component='span'>ПОИСК ОПТИМАЛЬНЫХ ОПОР</Typography>
 				</AccordionSummary>
 				<AccordionDetails>
-					<Typography>Текст</Typography>
+					<Typography>
+						Мы помогаем предприятиям и организациям выбрать наиболее подходящие
+						опоры для их нужд. Мы учитываем все факторы, влияющие на выбор опор,
+						включая технические характеристики, стоимость, доступность и другие
+						параметры.
+					</Typography>
 				</AccordionDetails>
 			</Accordion>
 
@@ -98,7 +109,12 @@ export default function CustomizedAccordions() {
 					</Typography>
 				</AccordionSummary>
 				<AccordionDetails>
-					<Typography>Текст</Typography>
+					<Typography>
+						Мы боремся с нелегальными подключениями к опорам линий
+						электропередачи, которые могут привести к авариям и перебоям в
+						электроснабжении. Наши специалисты проводят рейды и проверки,
+						выявляют нелегальные подключения и принимают меры по их устранению.
+					</Typography>
 				</AccordionDetails>
 			</Accordion>
 
@@ -114,7 +130,12 @@ export default function CustomizedAccordions() {
 					</Typography>
 				</AccordionSummary>
 				<AccordionDetails>
-					<Typography>Текст</Typography>
+					<Typography>
+						Мы помогаем предприятиям и организациям быстро и просто отправить
+						заявку на подключение к опорам линий электропередачи. Мы
+						предоставляем онлайн-форму для заполнения заявки, которая позволяет
+						отправить её в один клик.
+					</Typography>
 				</AccordionDetails>
 			</Accordion>
 		</Box>

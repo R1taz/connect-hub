@@ -2,7 +2,7 @@ import { Grid2, Typography } from '@mui/material'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 import RegistrationForm from '../../components/Registration/RegistrationForm/RegistrationForm'
 
-const Registration = () => {
+const RegistrationPage = () => {
 	return (
 		<Grid2 container>
 			<Grid2 size={12} sx={{ display: 'flex', alignItems: 'end', mt: '120px' }}>
@@ -26,4 +26,4 @@ const Registration = () => {
 	)
 }
 
-export default Registration
+export default RegistrationPage

@@ -3,6 +3,8 @@ import Layout from './layout/Layout'
 import Main from './pages/Main/Main'
 import Registration from './pages/Registration/Registration'
 import Authorization from './pages/Authorization/Authorization'
+import MapPage from './pages/MapPage/MapPage'
+import Contacts from './pages/Contacts/Contacts'
 
 function App() {
 	return (
@@ -11,6 +13,8 @@ function App() {
 				<Route index element={<Main />} />
 				<Route path='/registration' element={<Registration />} />
 				<Route path='/login' element={<Authorization />} />
+				<Route path='/map' element={<MapPage />} />
+				<Route path='/contacts' element={<Contacts />} />
 			</Route>
 		</Routes>
 	)
