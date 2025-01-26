@@ -1,5 +1,5 @@
 :root {
-	line-height: 1.5;
+	line-height: 1.1;
 }
 
 @font-face {
@@ -18,9 +18,17 @@
 
 body {
 	font-family: 'Cygre', sans-serif;
-	margin: 0;
+	margin: 60;
 }
 
 p {
 	font-family: 'Cygre', sans-serif;
+}
+
+.ymaps-layers-pane {
+	filter: grayscale(1);
+	-ms-filter: grayscale(1);
+	-webkit-filter: grayscale(1);
+	-moz-filter: grayscale(1);
+	-o-filter: grayscale(1);
 }

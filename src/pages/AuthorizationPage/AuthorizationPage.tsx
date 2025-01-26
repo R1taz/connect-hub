@@ -2,7 +2,7 @@ import { Grid2, Typography } from '@mui/material'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 import AuthorizationForm from '../../components/Authorization/AuthorizationForm/AuthorizationForm'
 
-const Authorization = () => {
+const AuthorizationPage = () => {
 	return (
 		<Grid2 container>
 			<Grid2 size={12} sx={{ display: 'flex', alignItems: 'end', mt: '120px' }}>
@@ -24,4 +24,4 @@ const Authorization = () => {
 	)
 }
 
-export default Authorization
+export default AuthorizationPage
