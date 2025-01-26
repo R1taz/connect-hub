@@ -1,13 +1,10 @@
 import {
 	Box,
-	Button,
 	Checkbox,
-	FormControl,
 	FormControlLabel,
-	InputLabel,
-	NativeSelect,
 	TextField,
 	Typography,
+	useTheme,
 } from '@mui/material'
 import { Formik, ErrorMessage, Form } from 'formik'
 import styles from './styles.module.css'
@@ -18,6 +15,7 @@ import ArrowTopSVG from '../../../assets/arrowTop.svg'
 import { NavLink } from 'react-router-dom'
 
 const RegistrationForm = () => {
+	const theme = useTheme()
 	const [open, setOpen] = useState(false)
 
 	return (
@@ -142,6 +140,7 @@ const RegistrationForm = () => {
 					<ErrorMessage name='email' component='div' />
 
 					<FormControlLabel
+						sx={{ color: theme.palette.secondary.main }}
 						control={<Checkbox sx={{ marginLeft: 1 }} />}
 						label='Согласие на обработку персональных данных'
 					/>
@@ -154,9 +153,19 @@ const RegistrationForm = () => {
 						Отправить
 					</CustomButton>
 
-					<Box sx={{ display: 'flex' }}>
-						<Typography>Аккаунт создан?</Typography>
-						<NavLink to='/login' style={{ marginLeft: '4px' }}>
+					<Box sx={{ display: 'flex', alignItems: 'center' }}>
+						<Typography
+							sx={{
+								display: 'inline-block',
+								color: theme.palette.secondary.main,
+							}}
+						>
+							Аккаунт создан?
+						</Typography>
+						<NavLink
+							to='/login'
+							style={{ marginLeft: '4px', color: theme.palette.primary.main }}
+						>
 							Войти
 						</NavLink>
 					</Box>
