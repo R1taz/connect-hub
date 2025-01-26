@@ -1,0 +1,1 @@
+export const BASE_COORDINATES = [56.329778, 43.995313]
