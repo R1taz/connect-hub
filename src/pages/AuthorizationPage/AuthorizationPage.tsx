@@ -4,7 +4,7 @@ import AuthorizationForm from '../../components/Authorization/AuthorizationForm/
 
 const AuthorizationPage = () => {
 	return (
-		<Grid2 container>
+		<Grid2 container sx={{ mb: 10 }}>
 			<Grid2 size={12} sx={{ display: 'flex', alignItems: 'end', mt: '120px' }}>
 				<Typography variant='h3'>ВОЙТИ</Typography>
 				<ArrowOutwardRoundedIcon sx={{ marginLeft: 1, fontSize: '65px' }} />

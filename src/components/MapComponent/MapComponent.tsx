@@ -1,19 +1,24 @@
 import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps'
 import { BASE_COORDINATES } from '../../constants/constants'
-import styles from './styles.modules.css'
 
 const MapComponent = () => {
 	return (
 		<YMaps query={{ apikey: import.meta.env.VITE_API_KEY }}>
-			<div style={{ width: '100%', height: '500px' }}>
+			<div
+				style={{
+					width: '100%',
+					height: '500px',
+					filter: 'contrast(1.0) brightness(1.0)',
+				}}
+			>
 				<Map
-					className='ymaps-layers-pane'
-					state={{
+					// Можно указывать стили напрямую
+					style={{ width: '100%', height: '100%' }}
+					// Рекомендуется использовать defaultState для начального состояния карты
+					defaultState={{
 						center: BASE_COORDINATES,
 						zoom: 10,
 					}}
-					width='100%'
-					height='100%'
 				>
 					<Placemark geometry={BASE_COORDINATES} />
 				</Map>
