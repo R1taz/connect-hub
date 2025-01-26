@@ -1,5 +1,6 @@
 import { Box, Grid2, Stack, Typography } from '@mui/material'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
+import { NavLink } from 'react-router-dom'
 
 const ReasonsCreateAccount = () => {
 	return (
@@ -33,7 +34,9 @@ const ReasonsCreateAccount = () => {
 				</Stack>
 
 				<Box sx={{ mt: '50px', display: 'flex' }}>
-					<Typography variant='h6'>ЗАПРОСИТЬ РЕГИСТРАЦИЮ</Typography>
+					<NavLink to='/registration'>
+						<Typography variant='h6'>ЗАПРОСИТЬ РЕГИСТРАЦИЮ</Typography>
+					</NavLink>
 					<ArrowOutwardRoundedIcon sx={{ marginLeft: 1 }} />
 				</Box>
 			</Grid2>

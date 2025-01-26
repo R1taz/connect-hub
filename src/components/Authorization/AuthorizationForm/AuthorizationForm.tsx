@@ -67,7 +67,7 @@ const AuthorizationForm = () => {
 
 					<Box sx={{ display: 'flex' }}>
 						<Typography>Нет аккаунта?</Typography>
-						<NavLink to='/login' style={{ marginLeft: '4px' }}>
+						<NavLink to='' style={{ marginLeft: '4px' }}>
 							Запросить аккаунт
 						</NavLink>
 					</Box>
