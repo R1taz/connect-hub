@@ -7,7 +7,7 @@ import AboutUs from '../../components/Main/AboutUs/AboutUs'
 import Footer from '../../components/Main/Footer/Footer'
 import RegistrationBlock from '../../components/Main/RegistrationBlock/RegistrationBlock'
 
-const Main = () => {
+const MainPage = () => {
 	return (
 		<>
 			<Title />
@@ -21,4 +21,4 @@ const Main = () => {
 	)
 }
 
-export default Main
+export default MainPage
