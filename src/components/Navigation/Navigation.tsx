@@ -18,11 +18,11 @@ const Navigation = () => {
 				)}
 			{location.pathname !== '/login' &&
 				location.pathname !== '/registration' && (
-					<NavLink to='/' className={styles.link}>
+					<NavLink to='/contacts' className={styles.link}>
 						Контакты
 					</NavLink>
 				)}
-			<NavLink to='/' className={`${styles.entrance} ${styles.link}`}>
+			<NavLink to='/login' className={`${styles.entrance} ${styles.link}`}>
 				Войти
 			</NavLink>
 		</Box>
