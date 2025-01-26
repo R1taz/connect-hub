@@ -2,9 +2,13 @@ import { Box, TextField, Typography } from '@mui/material'
 import { Formik, ErrorMessage, Form } from 'formik'
 import styles from './styles.module.css'
 import { CustomButton } from '../../ui/Button'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { BASE_URL } from '../../../constants/constants'
 
 const AuthorizationForm = () => {
+	const navigate = useNavigate()
+
 	return (
 		<Formik
 			initialValues={{
@@ -12,7 +16,24 @@ const AuthorizationForm = () => {
 				password: '',
 			}}
 			/* validate={} */
-			onSubmit={(values, { setSubmitting }) => {
+			onSubmit={async (values, { setSubmitting }) => {
+				const response = await axios.post(`${BASE_URL}/login`, values)
+
+				if (response.data.result_code) {
+					if (response.data.role === 1) {
+						console.log(1)
+					}
+					if (response.data.role === 2) {
+						console.log(2)
+					}
+					if (response.data.role === 3) {
+						console.log(3)
+					}
+					navigate('/')
+				} else {
+					alert('ошибка')
+				}
+
 				console.log(values)
 				setSubmitting(false)
 			}}
