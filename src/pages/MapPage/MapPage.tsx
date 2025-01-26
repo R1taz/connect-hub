@@ -1,4 +1,4 @@
-import { Divider, Grid2, Typography } from '@mui/material'
+import { Divider, Grid2 } from '@mui/material'
 import Title from '../../components/Main/Title/Title'
 import MapComponent from '../../components/MapComponent/MapComponent'
 import { CustomButton } from '../../components/ui/Button'
