@@ -1,0 +1,26 @@
+:root {
+	line-height: 1.5;
+}
+
+@font-face {
+	font-family: 'ActayWide';
+	src: url('./fonts/ActayWide/ActayWide-Bold.woff') format('woff');
+	font-weight: bold;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Cygre';
+	src: url('./fonts/Cygre/Cygre-Medium.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+body {
+	font-family: 'Cygre', sans-serif;
+	margin: 0;
+}
+
+p {
+	font-family: 'Cygre', sans-serif;
+}
