@@ -2,30 +2,25 @@ import { Box, TextField, Typography, useTheme } from '@mui/material'
 import { Formik, ErrorMessage, Form } from 'formik'
 import styles from './styles.module.css'
 import { CustomButton } from '../../ui/Button'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { entranceSchema } from '../../../helpers/validateEntrance'
 import { BASE_URL } from '../../../constants/constants'
 import axios from 'axios'
+import СonsentСheckbox from '../../ui/СonsentСheckbox'
 
-const AuthorizationForm = () => {
+const RecoverForm = () => {
 	const theme = useTheme()
-	const navigate = useNavigate()
 
 	return (
 		<Formik
 			initialValues={{
-				login: '',
-				password: '',
+				email: '',
 			}}
+			validationSchema={entranceSchema}
 			onSubmit={async (values, { setSubmitting }) => {
-				const response = await axios.post(`${BASE_URL}/login`, values)
+				const response = await axios.post(`${BASE_URL}/recover`, values)
 
-				if (!response.data.result_code) {
-					navigate('/map')
-					return
-				} else console.log('error')
-				//logic here...
-
+				// logic here
 				setSubmitting(false)
 			}}
 		>
@@ -37,61 +32,24 @@ const AuthorizationForm = () => {
 						name='login'
 						onChange={handleChange}
 						onBlur={handleBlur}
-						value={values.login}
+						value={values.email}
 						sx={{
 							my: 4,
 							display: 'block',
 							'& .MuiInputBase-root': { width: '100%' },
 						}}
-						placeholder='ЛОГИН'
+						placeholder='ЭЛ. ПОЧТА'
 					/>
 					<ErrorMessage name='name' component='div' />
 
-					<TextField
-						variant='standard'
-						type='password'
-						name='password'
-						onChange={handleChange}
-						onBlur={handleBlur}
-						value={values.password}
-						sx={{
-							my: 4,
-							display: 'block',
-							'& .MuiInputBase-root': { width: '100%' },
-						}}
-						placeholder='ПАРОЛЬ'
-					/>
-					<ErrorMessage name='telephone' component='div' />
-
-					<NavLink to='/recover'>
-						<Typography
-							sx={{
-								display: 'inline-block',
-								color: theme.palette.secondary.main,
-							}}
-						>
-							Забыли пароль?
-						</Typography>{' '}
-						<Typography
-							sx={{
-								color: theme.palette.secondary.main,
-								display: 'inline-block',
-								textDecoration: 'none',
-								borderBottom: '1px solid',
-								borderColor: theme.palette.secondary.main,
-								paddingBottom: '0.1px',
-							}}
-						>
-							Восстановить
-						</Typography>
-					</NavLink>
+					<СonsentСheckbox />
 
 					<CustomButton
 						sx={{ mt: 8, mb: 1 }}
 						type='submit'
 						disabled={isSubmitting}
 					>
-						Войти
+						Запросить логин и пароль
 					</CustomButton>
 
 					<Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -114,4 +72,4 @@ const AuthorizationForm = () => {
 	)
 }
 
-export default AuthorizationForm
+export default RecoverForm

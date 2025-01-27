@@ -1,11 +1,4 @@
-import {
-	Box,
-	Checkbox,
-	FormControlLabel,
-	TextField,
-	Typography,
-	useTheme,
-} from '@mui/material'
+import { Box, TextField, Typography, useTheme } from '@mui/material'
 import { Formik, ErrorMessage, Form } from 'formik'
 import styles from './styles.module.css'
 import { useState } from 'react'
@@ -13,6 +6,7 @@ import { CustomButton } from '../../ui/Button'
 import ArrowDownSVG from '../../../assets/arrowDown.svg'
 import ArrowTopSVG from '../../../assets/arrowTop.svg'
 import { NavLink } from 'react-router-dom'
+import СonsentСheckbox from '../../ui/СonsentСheckbox'
 
 const RegistrationForm = () => {
 	const theme = useTheme()
@@ -28,7 +22,7 @@ const RegistrationForm = () => {
 			}}
 			/* validate={} */
 			onSubmit={(values, { setSubmitting }) => {
-				console.log(values)
+				// logic here...
 				setSubmitting(false)
 			}}
 		>
@@ -139,11 +133,7 @@ const RegistrationForm = () => {
 					/>
 					<ErrorMessage name='email' component='div' />
 
-					<FormControlLabel
-						sx={{ color: theme.palette.secondary.main }}
-						control={<Checkbox sx={{ marginLeft: 1 }} />}
-						label='Согласие на обработку персональных данных'
-					/>
+					<СonsentСheckbox />
 
 					<CustomButton
 						sx={{ mt: 5, mb: 1 }}

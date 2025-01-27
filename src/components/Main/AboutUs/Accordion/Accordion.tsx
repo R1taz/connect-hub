@@ -13,9 +13,9 @@ import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOu
 
 const Accordion = styled((props: AccordionProps) => (
 	<MuiAccordion disableGutters elevation={0} square {...props} />
-))(({ theme }) => ({
-	borderTop: `1px solid ${theme.palette.divider}`,
-	borderBottom: `1px solid ${theme.palette.divider}`,
+))(() => ({
+	borderTop: `1px solid black`,
+	borderBottom: `1px solid black`,
 	'&:not(:last-child)': {
 		borderBottom: 0,
 	},

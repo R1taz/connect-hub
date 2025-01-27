@@ -1,6 +1,6 @@
 import { Box, Divider, Grid2, Typography } from '@mui/material'
 
-const Contacts = () => {
+const ContactsPage = () => {
 	return (
 		<Grid2 container>
 			<Grid2 size={12} sx={{ display: 'flex', alignItems: 'end', mt: '120px' }}>
@@ -29,4 +29,4 @@ const Contacts = () => {
 	)
 }
 
-export default Contacts
+export default ContactsPage

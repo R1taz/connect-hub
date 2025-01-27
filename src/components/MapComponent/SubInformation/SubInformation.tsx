@@ -20,13 +20,13 @@ const SubInformation = () => {
 				</Typography>
 			</Grid2>
 
-			<Grid2 size={7} sx={{ mt: 35 }}>
+			<Grid2 size={7} sx={{ mt: 25 }}>
 				<Typography variant='h3'>ПОСМОТРИТЕ ОПОРЫ НА КАРТЕ</Typography>
 			</Grid2>
 			<Grid2
 				size={5}
 				sx={{
-					mt: 35,
+					mt: 20,
 					display: 'flex',
 					justifyContent: 'center',
 					alignItems: 'center',

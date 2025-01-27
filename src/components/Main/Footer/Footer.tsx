@@ -1,6 +1,7 @@
 import { Box, Divider, Grid2, Stack, Typography, useTheme } from '@mui/material'
 import logoSVG from '../../../assets/logo.svg'
 import styles from './styles.module.css'
+import DividerCustom from '../../ui/DividerCustom'
 
 const Footer = () => {
 	const theme = useTheme()
@@ -39,14 +40,7 @@ const Footer = () => {
 				<Grid2 size={1}></Grid2>
 			</Grid2>
 
-			<Divider
-				sx={{
-					backgroundColor: 'black',
-					borderWidth: '1px',
-					mt: 6,
-					mb: 3,
-				}}
-			/>
+			<DividerCustom />
 
 			<Box
 				sx={{ mt: 5, mb: 3, display: 'flex', justifyContent: 'space-between' }}

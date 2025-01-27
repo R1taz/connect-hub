@@ -11,12 +11,17 @@ interface Props {
 const Supports = ({ name, location, rating }: Props) => {
 	return (
 		<Stack
-			divider={<Divider orientation='horizontal' flexItem />}
 			sx={{
-				padding: '20px',
+				padding: '5px',
 			}}
 		>
-			<Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+			<Box
+				sx={{
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'space-between',
+				}}
+			>
 				<Box sx={{ width: '25%' }}>
 					<Typography sx={{ fontSize: '20px' }}>{name}</Typography>
 					<Typography>{location}</Typography>
