@@ -3,13 +3,15 @@ import { Formik, ErrorMessage, Form } from 'formik'
 import styles from './styles.module.css'
 import { CustomButton } from '../../ui/Button'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { entranceSchema } from '../../../helpers/validateEntrance'
 import { BASE_URL } from '../../../constants/constants'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { setRole } from '../../../store/slice/authSlice'
 
 const AuthorizationForm = () => {
 	const theme = useTheme()
 	const navigate = useNavigate()
+	const dispatch = useDispatch()
 
 	return (
 		<Formik
@@ -18,15 +20,22 @@ const AuthorizationForm = () => {
 				password: '',
 			}}
 			onSubmit={async (values, { setSubmitting }) => {
-				const response = await axios.post(`${BASE_URL}/login`, values)
+				try {
+					const response = await axios.post<{ result_code: 0; role: number }>(
+						`${BASE_URL}/login`,
+						values
+					)
 
-				if (!response.data.result_code) {
 					navigate('/map')
-					return
-				} else console.log('error')
-				//logic here...
+					if (response.data.result_code === 0) {
+						dispatch(setRole(response.data.role))
+						navigate('/map')
+					}
 
-				setSubmitting(false)
+					setSubmitting(false)
+				} catch (error) {
+					setSubmitting(false)
+				}
 			}}
 		>
 			{({ values, handleChange, handleBlur, isSubmitting }) => (

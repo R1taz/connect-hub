@@ -13,13 +13,15 @@ const Navigation = () => {
 				Главная
 			</NavLink>
 			{location.pathname !== '/login' &&
-				location.pathname !== '/registration' && (
+				location.pathname !== '/registration' &&
+				location.pathname !== '/contacts' && (
 					<NavLink to='/' className={styles.link}>
 						О нас
 					</NavLink>
 				)}
 			{location.pathname !== '/login' &&
-				location.pathname !== '/registration' && (
+				location.pathname !== '/registration' &&
+				location.pathname !== '/contacts' && (
 					<NavLink to='/contacts' className={styles.link}>
 						Контакты
 					</NavLink>

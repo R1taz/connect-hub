@@ -18,19 +18,13 @@ const MapComponent = () => {
 		iconImageOffset: [-15, -15],
 	}
 
-	const { data, isFetching, error } = useGetPillarsQuery('')
+	/* const { data, isFetching, error } = useGetPillarsQuery('')
 
 	if (isFetching && !pillars.length) return <div>Загрузка...</div>
 	if (error) return <div>Ошибка загрузки меток</div>
-	if (data && data.length) {
+	if (data) {
 		dispatch(setPillars(data))
-	}
-
-	/* useEffect(() => {
-		axios
-			.get('https://railway.com/railway.schema.json/poles')
-			.then(pillars => dispatch(setPillars(pillars)))
-	}, []) */
+	} */
 
 	return (
 		<YMaps query={{ apikey: import.meta.env.VITE_API_KEY }}>
@@ -49,8 +43,9 @@ const MapComponent = () => {
 					}}
 					className='ymaps-layers-pane'
 				>
-					{pillars.map(pillar => (
+					{pillars.map((pillar, index) => (
 						<Placemark
+							key={index}
 							geometry={pillar.coordinates}
 							options={placemarkOptions}
 						/>

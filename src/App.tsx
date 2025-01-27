@@ -6,6 +6,7 @@ import AuthorizationPage from './pages/AuthorizationPage/AuthorizationPage'
 import MapPage from './pages/MapPage/MapPage'
 import ContactsPage from './pages/ContactsPage/ContactsPage'
 import RecoverPasswordPage from './pages/RecoverPasswordPage/RecoverPasswordPage'
+import ProfilePage from './pages/ProfilePage/ProfilePage'
 
 function App() {
 	return (
@@ -17,6 +18,7 @@ function App() {
 				<Route path='/map' element={<MapPage />} />
 				<Route path='/contacts' element={<ContactsPage />} />
 				<Route path='/recover' element={<RecoverPasswordPage />} />
+				<Route path='/profile' element={<ProfilePage />} />
 			</Route>
 		</Routes>
 	)

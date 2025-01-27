@@ -4,6 +4,7 @@ const DividerCustom = () => {
 	return (
 		<Divider
 			sx={{
+				width: '100%',
 				backgroundColor: 'black',
 				borderWidth: '1px',
 				mt: 6,

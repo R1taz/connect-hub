@@ -5,12 +5,18 @@ import { useState } from 'react'
 import { CustomButton } from '../../ui/Button'
 import ArrowDownSVG from '../../../assets/arrowDown.svg'
 import ArrowTopSVG from '../../../assets/arrowTop.svg'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import СonsentСheckbox from '../../ui/СonsentСheckbox'
+import axios from 'axios'
+import { BASE_URL } from '../../../constants/constants'
+import { setLoginAndPass } from '../../../store/slice/authSlice'
+import { useAppDispatch } from '../../../hooks/react-redux'
 
 const RegistrationForm = () => {
 	const theme = useTheme()
 	const [open, setOpen] = useState(false)
+	const dispatch = useAppDispatch()
+	const navigate = useNavigate()
 
 	return (
 		<Formik
@@ -20,10 +26,23 @@ const RegistrationForm = () => {
 				telephone: '',
 				email: '',
 			}}
-			/* validate={} */
-			onSubmit={(values, { setSubmitting }) => {
-				// logic here...
-				setSubmitting(false)
+			onSubmit={async (values, { setSubmitting }) => {
+				try {
+					const response = await axios.post<{
+						login: string
+						password: string
+						result_code: number
+					}>(`${BASE_URL}/register`)
+
+					if (response.data.result_code === 0) {
+						dispatch(setLoginAndPass(response.data))
+						navigate('/map')
+					}
+
+					setSubmitting(false)
+				} catch (error) {
+					setSubmitting(false)
+				}
 			}}
 		>
 			{({ values, handleChange, handleBlur, isSubmitting }) => (
