@@ -4,15 +4,21 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 interface State {
 	currentNameOrganization: string
 	role: number
-	login: string
-	password: string
+	organization: string
+	notifications: {
+		id: number
+		street: string
+		coordinates: [number, number]
+		organizationProvider: string
+		status: string
+	}[]
 }
 
 const initialState: State = {
 	currentNameOrganization: 'ООО МТС',
-	role: 1,
-	login: 'CAcascas123',
-	password: 'dasdadasd1231',
+	role: 0,
+	organization: '',
+	notifications: [],
 }
 
 export const authSlice = createSlice({
@@ -22,16 +28,14 @@ export const authSlice = createSlice({
 		setRole(state, action: PayloadAction<number>) {
 			state.role = action.payload
 		},
-		setCurrentNameOrganization(state, action) {
-			state.currentNameOrganization = action.payload
+		registration(state, action: PayloadAction<string>) {
+			state.organization = action.payload
 		},
-		setLoginAndPass(state, action) {
-			state.login = action.payload.login
-			state.password = action.payload.password
+		addNotification(state, action) {
+			state.notifications = action.payload
 		},
 	},
 })
 
-export const { setRole, setCurrentNameOrganization, setLoginAndPass } =
-	authSlice.actions
+export const { setRole, registration } = authSlice.actions
 export default authSlice.reducer

@@ -1,18 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface IPillar {
-	street: string
-	coordinates: [number, number]
-	rating: number
+	id: number
+	location: [number, number]
+	maxConnection: number
+	currentConnection: number
+	factConnection: number
+	userId: number
 	status: string
 }
 
-interface State {
-	pillars: IPillar[]
-}
-
-const initialState: State = {
-	pillars: [
+/* pillars: [
 		{
 			street: 'УЛ. РОЖДЕСТВЕНСКАЯ 7',
 			coordinates: [56.330176, 43.997982],
@@ -37,7 +35,14 @@ const initialState: State = {
 			rating: 1,
 			status: 'ОЖИДАНИЕ',
 		},
-	],
+	], */
+
+interface State {
+	pillars: IPillar[]
+}
+
+const initialState: State = {
+	pillars: [],
 }
 
 export const mapSlice = createSlice({
@@ -47,7 +52,7 @@ export const mapSlice = createSlice({
 		setPillars(state, action) {
 			state.pillars = action.payload
 		},
-		addPillar(state, action) {
+		addPillar(state, action: PayloadAction<IPillar>) {
 			state.pillars.push(action.payload)
 		},
 		removePillar(state, action) {

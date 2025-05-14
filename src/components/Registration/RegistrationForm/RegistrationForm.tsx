@@ -9,7 +9,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import СonsentСheckbox from '../../ui/СonsentСheckbox'
 import axios from 'axios'
 import { BASE_URL } from '../../../constants/constants'
-import { setLoginAndPass } from '../../../store/slice/authSlice'
+import { registration, setRole } from '../../../store/slice/authSlice'
 import { useAppDispatch } from '../../../hooks/react-redux'
 
 const RegistrationForm = () => {
@@ -21,7 +21,7 @@ const RegistrationForm = () => {
 	return (
 		<Formik
 			initialValues={{
-				name: '',
+				organization: '',
 				type: '',
 				telephone: '',
 				email: '',
@@ -29,14 +29,15 @@ const RegistrationForm = () => {
 			onSubmit={async (values, { setSubmitting }) => {
 				try {
 					const response = await axios.post<{
-						login: string
-						password: string
 						result_code: number
+						organization: string
 					}>(`${BASE_URL}/register`)
 
 					if (response.data.result_code === 0) {
-						dispatch(setLoginAndPass(response.data))
-						navigate('/map')
+						dispatch(registration(response.data.organization))
+						if (values.type === 'network') setRole(1)
+						if (values.type === 'backbone') setRole(2)
+						navigate('/profile')
 					}
 
 					setSubmitting(false)
@@ -53,7 +54,7 @@ const RegistrationForm = () => {
 						name='name'
 						onChange={handleChange}
 						onBlur={handleBlur}
-						value={values.name}
+						value={values.organization}
 						sx={{
 							my: 4,
 							display: 'block',

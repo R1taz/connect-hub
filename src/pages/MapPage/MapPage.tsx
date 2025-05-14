@@ -10,6 +10,8 @@ import { useAppSelector } from '../../hooks/react-redux'
 
 const MapPage = () => {
 	const role = useAppSelector(state => state.authSlice.role)
+	const pillars = useAppSelector(state => state.mapSlice.pillars)
+	const locations = pillars.map(pillar => pillar.location)
 
 	return (
 		<>
@@ -32,29 +34,22 @@ const MapPage = () => {
 				))}
 
 			<DividerCustom />
+
 			<Supports
 				name='УЛ. РОЖДЕСТВЕНСКАЯ 7'
-				location='56.330176,43.997982'
+				location={locations[0]}
 				rating='5'
 			/>
 			<DividerCustom />
-			<Supports
-				name='УЛ. ЛЕНИНА 34А'
-				location='56.285413,43.930088'
-				rating='4'
-			/>
+			<Supports name='УЛ. ЛЕНИНА 34А' location={locations[1]} rating='4' />
 			<DividerCustom />
 			<Supports
 				name='УЛ. ЗЕЛЕНОДОЛЬСКАЯ 54'
-				location='56.311152,43.92521'
+				location={locations[2]}
 				rating='3'
 			/>
 			<DividerCustom />
-			<Supports
-				name='УЛ. БЕЛИНСКОГО 41'
-				location='56.313019,44.007747'
-				rating='1'
-			/>
+			<Supports name='УЛ. БЕЛИНСКОГО 41' location={locations[3]} rating='1' />
 			<DividerCustom />
 
 			<Footer />

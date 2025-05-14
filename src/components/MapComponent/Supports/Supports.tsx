@@ -4,7 +4,7 @@ import styles from './styles.module.css'
 
 interface Props {
 	name: string
-	location: string
+	location: [number, number]
 	rating: string
 }
 

@@ -21,11 +21,17 @@ const AuthorizationForm = () => {
 			}}
 			onSubmit={async (values, { setSubmitting }) => {
 				try {
-					const response = await axios.post<{ result_code: 0; role: number }>(
-						`${BASE_URL}/login`,
-						values
-					)
+					const response = await axios.post<{
+						result_code: number
+						role: number
+					}>(`${BASE_URL}/login`, {
+						login: values.login,
+						password: values.password,
+					})
 
+					console.log(response.data.result_code)
+
+					dispatch(setRole(response.data.role))
 					navigate('/map')
 					if (response.data.result_code === 0) {
 						dispatch(setRole(response.data.role))

@@ -2,8 +2,6 @@ import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps'
 import { BASE_COORDINATES } from '../../constants/constants'
 import pointSVG from '../../assets/point.svg'
 import { useAppDispatch, useAppSelector } from '../../hooks/react-redux'
-import { useEffect } from 'react'
-import axios from 'axios'
 import { setPillars } from '../../store/slice/mapSlice'
 import { useGetPillarsQuery } from '../../api/mapApi'
 
@@ -18,13 +16,13 @@ const MapComponent = () => {
 		iconImageOffset: [-15, -15],
 	}
 
-	/* const { data, isFetching, error } = useGetPillarsQuery('')
+	const { data, isFetching, error } = useGetPillarsQuery('')
 
 	if (isFetching && !pillars.length) return <div>Загрузка...</div>
 	if (error) return <div>Ошибка загрузки меток</div>
 	if (data) {
 		dispatch(setPillars(data))
-	} */
+	}
 
 	return (
 		<YMaps query={{ apikey: import.meta.env.VITE_API_KEY }}>
@@ -46,7 +44,7 @@ const MapComponent = () => {
 					{pillars.map((pillar, index) => (
 						<Placemark
 							key={index}
-							geometry={pillar.coordinates}
+							geometry={pillar.location}
 							options={placemarkOptions}
 						/>
 					))}
