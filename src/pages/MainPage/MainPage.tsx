@@ -10,7 +10,6 @@ import RegistrationBlock from '../../components/Main/RegistrationBlock/Registrat
 const MainPage = () => {
 	return (
 		<>
-			<input type='text' />
 			<Title />
 			<Divider sx={{ mt: '10px' }}></Divider>
 			<RegistrationBlock />

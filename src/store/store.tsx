@@ -9,8 +9,7 @@ export const store = configureStore({
 		mapSlice,
 		[mapApi.reducerPath]: mapApi.reducer,
 	},
-	middleware: getDefaultMiddleware =>
-		getDefaultMiddleware().concat([mapApi.middleware]),
+	middleware: getDefaultMiddleware => getDefaultMiddleware().concat([mapApi.middleware]),
 })
 
 export type RootState = ReturnType<typeof store.getState>

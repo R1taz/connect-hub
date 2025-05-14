@@ -11,7 +11,7 @@ import { useAppSelector } from '../../hooks/react-redux'
 const MapPage = () => {
 	const role = useAppSelector(state => state.authSlice.role)
 	const pillars = useAppSelector(state => state.mapSlice.pillars)
-	const locations = pillars.map(pillar => pillar.location)
+	const locations = pillars.map(pillar => pillar.coordinates)
 
 	return (
 		<>

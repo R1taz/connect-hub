@@ -18,9 +18,9 @@ const ProfileSupports = ({
 	let colorStatus = ''
 	const theme = useTheme()
 
-	if (status === 'Принято') colorStatus = '#319025'
-	if (status === 'Отклонено') colorStatus = '#A20404'
-	if (status === 'Ожидание') colorStatus = '#000000'
+	if (status.toLocaleLowerCase() === 'принято') colorStatus = '#319025'
+	if (status.toLocaleLowerCase() === 'отклонено') colorStatus = '#A20404'
+	if (status.toLocaleLowerCase() === 'ожидание') colorStatus = '#000000'
 
 	return (
 		<Stack
@@ -42,7 +42,9 @@ const ProfileSupports = ({
 				{role !== 1 && <Typography>{currentNameOrganization}</Typography>}
 				<Box>
 					{role === 1 && (
-						<Typography sx={{ color: colorStatus }}>{status}</Typography>
+						<Typography sx={{ color: colorStatus, fontWeight: 'bold' }}>
+							{status}
+						</Typography>
 					)}
 					{role === 2 && (
 						<Stack>

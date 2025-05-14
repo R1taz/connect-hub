@@ -10,7 +10,19 @@ interface IPillar {
 	status: string
 }
 
-/* pillars: [
+interface State {
+	pillars: Pillar[]
+}
+
+interface Pillar {
+	street: string
+	coordinates: [number, number]
+	rating: number
+	status: string
+}
+
+const initialState: State = {
+	pillars: [
 		{
 			street: 'УЛ. РОЖДЕСТВЕНСКАЯ 7',
 			coordinates: [56.330176, 43.997982],
@@ -35,14 +47,7 @@ interface IPillar {
 			rating: 1,
 			status: 'ОЖИДАНИЕ',
 		},
-	], */
-
-interface State {
-	pillars: IPillar[]
-}
-
-const initialState: State = {
-	pillars: [],
+	],
 }
 
 export const mapSlice = createSlice({
@@ -52,7 +57,7 @@ export const mapSlice = createSlice({
 		setPillars(state, action) {
 			state.pillars = action.payload
 		},
-		addPillar(state, action: PayloadAction<IPillar>) {
+		addPillar(state, action: PayloadAction<Pillar>) {
 			state.pillars.push(action.payload)
 		},
 		removePillar(state, action) {

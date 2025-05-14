@@ -2,9 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 interface State {
-	currentNameOrganization: string
-	role: number
-	organization: string
+	role: string
+	nameOrganization: string
 	notifications: {
 		id: number
 		street: string
@@ -15,9 +14,8 @@ interface State {
 }
 
 const initialState: State = {
-	currentNameOrganization: 'ООО МТС',
-	role: 0,
-	organization: '',
+	role: 'Backbone provider',
+	nameOrganization: 'ООО МТС',
 	notifications: [],
 }
 
@@ -25,11 +23,11 @@ export const authSlice = createSlice({
 	name: 'authSlice',
 	initialState,
 	reducers: {
-		setRole(state, action: PayloadAction<number>) {
+		setRole(state, action: PayloadAction<string>) {
 			state.role = action.payload
 		},
 		registration(state, action: PayloadAction<string>) {
-			state.organization = action.payload
+			state.nameOrganization = action.payload
 		},
 		addNotification(state, action) {
 			state.notifications = action.payload

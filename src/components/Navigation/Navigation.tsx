@@ -12,6 +12,7 @@ const Navigation = () => {
 			<NavLink to='/' className={styles.link}>
 				Главная
 			</NavLink>
+
 			{location.pathname !== '/login' &&
 				location.pathname !== '/registration' &&
 				location.pathname !== '/contacts' && (

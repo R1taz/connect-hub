@@ -28,17 +28,18 @@ const RegistrationForm = () => {
 			}}
 			onSubmit={async (values, { setSubmitting }) => {
 				try {
-					const response = await axios.post<{
+					/* const response = await axios.post<{
 						result_code: number
 						organization: string
-					}>(`${BASE_URL}/register`)
+					}>(`${BASE_URL}/register`) */
 
-					if (response.data.result_code === 0) {
-						dispatch(registration(response.data.organization))
-						if (values.type === 'network') setRole(1)
-						if (values.type === 'backbone') setRole(2)
-						navigate('/profile')
-					}
+					navigate('/profile')
+					/* if (response.data.result_code === 0) {
+						dispatch(registration(response.data.organization)) */
+					/* if (values.type === 'network') setRole(1)
+						if (values.type === 'backbone') setRole(2) */
+
+					/* } */
 
 					setSubmitting(false)
 				} catch (error) {
@@ -51,7 +52,7 @@ const RegistrationForm = () => {
 					<TextField
 						variant='standard'
 						type='text'
-						name='name'
+						name='organization'
 						onChange={handleChange}
 						onBlur={handleBlur}
 						value={values.organization}
@@ -70,11 +71,7 @@ const RegistrationForm = () => {
 						name='type'
 						InputProps={{
 							readOnly: true,
-							endAdornment: open ? (
-								<img src={ArrowTopSVG} />
-							) : (
-								<img src={ArrowDownSVG} />
-							),
+							endAdornment: open ? <img src={ArrowTopSVG} /> : <img src={ArrowDownSVG} />,
 						}}
 						onClick={() => setOpen(prev => !prev)}
 						sx={{
@@ -155,11 +152,7 @@ const RegistrationForm = () => {
 
 					<СonsentСheckbox />
 
-					<CustomButton
-						sx={{ mt: 5, mb: 1 }}
-						type='submit'
-						disabled={isSubmitting}
-					>
+					<CustomButton sx={{ mt: 5, mb: 1 }} type='submit' disabled={isSubmitting}>
 						Отправить
 					</CustomButton>
 
@@ -172,10 +165,7 @@ const RegistrationForm = () => {
 						>
 							Аккаунт создан?
 						</Typography>
-						<NavLink
-							to='/login'
-							style={{ marginLeft: '4px', color: theme.palette.primary.main }}
-						>
+						<NavLink to='/login' style={{ marginLeft: '4px', color: theme.palette.primary.main }}>
 							Войти
 						</NavLink>
 					</Box>

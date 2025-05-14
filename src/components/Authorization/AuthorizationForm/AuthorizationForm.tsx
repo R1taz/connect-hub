@@ -21,22 +21,20 @@ const AuthorizationForm = () => {
 			}}
 			onSubmit={async (values, { setSubmitting }) => {
 				try {
-					const response = await axios.post<{
+					/* const response = await axios.post<{
 						result_code: number
 						role: number
 					}>(`${BASE_URL}/login`, {
 						login: values.login,
 						password: values.password,
-					})
+					}) */
 
-					console.log(response.data.result_code)
-
-					dispatch(setRole(response.data.role))
+					// dispatch(setRole(response.data.role))
 					navigate('/map')
-					if (response.data.result_code === 0) {
+					/* if (response.data.result_code === 0) {
 						dispatch(setRole(response.data.role))
 						navigate('/map')
-					}
+					} */
 
 					setSubmitting(false)
 				} catch (error) {
@@ -101,18 +99,12 @@ const AuthorizationForm = () => {
 						</Typography>
 					</NavLink>
 
-					<CustomButton
-						sx={{ mt: 8, mb: 1 }}
-						type='submit'
-						disabled={isSubmitting}
-					>
+					<CustomButton sx={{ mt: 8, mb: 1 }} type='submit' disabled={isSubmitting}>
 						Войти
 					</CustomButton>
 
 					<Box sx={{ display: 'flex', alignItems: 'center' }}>
-						<Typography sx={{ color: theme.palette.secondary.main }}>
-							Нет аккаунта?
-						</Typography>
+						<Typography sx={{ color: theme.palette.secondary.main }}>Нет аккаунта?</Typography>
 						<NavLink
 							to='/registration'
 							style={{
