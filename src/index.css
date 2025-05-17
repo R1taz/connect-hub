@@ -16,6 +16,10 @@
 	font-style: normal;
 }
 
+.root {
+	overflow-x: hidden;
+}
+
 body {
 	font-family: 'Cygre', sans-serif;
 	margin: 60;

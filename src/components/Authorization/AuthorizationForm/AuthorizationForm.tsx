@@ -9,42 +9,71 @@ import { setAuth } from '../../../store/slice/authSlice'
 import { setUser } from '../../../store/slice/userSlice'
 
 const AuthorizationForm = () => {
+	// Достаём объект темы из MaterialUI
 	const theme = useTheme()
+
+	// Достаём функцию навигации из React Router Dom
 	const navigate = useNavigate()
 
+	// Достаём специальную функцию из библиотеки React-Redux для обработки действий
 	const dispatch = useAppDispatch()
+
+	// Вызываем функции из библиотеки Redux Toolkit Query, которые отдают нам функции
+	// авторизации и проверки на авторизованность
 	const [login] = useLoginMutation()
 	const [authMe] = useLazyAuthMeQuery()
 
+	// Компонент из библиотеки Formik - аналог form
 	return (
 		<Formik
+			// Поля, которые будут в форме
 			initialValues={{
 				username: '',
 				password: '',
 			}}
+			// Функция, которая будет выполняться при отправке формы
 			onSubmit={async (values, { setSubmitting }) => {
+				// в параметрах получаем значения и функцию установки флага выполнения отправки формы
 				try {
+					// здесь происходит запрос на вход в аккаунт
 					const response = await login({
 						username: values.username,
 						password: values.password,
 					}).unwrap()
 
+					// Если в ответе есть токен
 					if (response.auth_token) {
+						// Записываем этот токен в локальное хранилище браузера
 						localStorage.setItem('token', response.auth_token)
+						// Устанавливаем в хранилище Redux Toolkit флаг авторизованности true
 						dispatch(setAuth(true))
 
+						// Делаем запрос на авторизованность и в качестве ответа получаем объект с пользователем
 						const user = await authMe().unwrap()
+						// Сохраняем пользователя в хранилище Redux Toolkit
 						dispatch(setUser(user))
 
+						// Делаем редирект на страницу карты
 						navigate('/map')
 					}
 
+					// флаг выполнения отправки формы становится не активным
 					setSubmitting(false)
 				} catch (error) {
+					// флаг выполнения отправки формы становится не активным
 					setSubmitting(false)
+					// выводим ошибку в консоль
 					console.error('Login failed:', error)
 				}
 			}}
+			// Form - аналог тега form
+			// TextField - аналог инпута, в name привязывается к тому значению, которое прописали
+			// value - значение инпута, onChange, onBlur - встроенные функции Formik, которые делают
+			// определённые действия при изменении и фокусировке
+			// ErrorMessage - аналог div, в котором выводится ошибка валидации
+
+			// Box это тоже аналог div, но который лучше подходит для адаптивности
+			// Typography это компонент, который в зависимости от значения variants равен определённому тегу
 		>
 			{({ values, handleChange, handleBlur, isSubmitting }) => (
 				<Form className={styles.form}>
@@ -103,10 +132,13 @@ const AuthorizationForm = () => {
 						</Typography>
 					</NavLink>
 
+					{/* Кнопка отправки функции */}
 					<CustomButton sx={{ mt: 8, mb: 1 }} type='submit' disabled={isSubmitting}>
 						Войти
 					</CustomButton>
 
+					{/* Блок с переходом на форму регистрации,
+					NavLink это аналог тега a. Отличие его в том, что он делает переход без перезагрузки страницы */}
 					<Box sx={{ display: 'flex', alignItems: 'center' }}>
 						<Typography sx={{ color: theme.palette.secondary.main }}>Нет аккаунта?</Typography>
 						<NavLink

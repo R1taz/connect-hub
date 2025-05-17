@@ -4,7 +4,17 @@ import styles from './styles.module.css'
 import DividerCustom from '../../ui/DividerCustom'
 
 const Footer = () => {
+	// Достаём объект темы из MaterialUI
 	const theme = useTheme()
+
+	// Grid2 это компонент из библиотеки MaterialUI
+	// он принимает size которая принимает значение столбцов в грид сетки
+	// Grid2 с атрибутом container это обёртка контейнер, которая задаёт определённые стили
+	// для всей грид сетки
+
+	// Typography это компонент, который в зависимости от значения variants равен определённому тегу
+	// Stack это компонент, который по умолчанию аналогичен div с display:flex и flexDirection: column
+	// DividerCustom это наш дочерний компонент
 
 	return (
 		<>

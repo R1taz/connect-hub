@@ -1,5 +1,8 @@
 import { createTheme } from '@mui/material'
 
+// Объект темы из MaterialUI
+// содержит кастомные шрифты и цвета
+
 export const theme = createTheme({
 	typography: {
 		h1: {

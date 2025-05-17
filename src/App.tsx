@@ -9,6 +9,12 @@ import RecoverPasswordPage from './pages/RecoverPasswordPage/RecoverPasswordPage
 import ProfilePage from './pages/ProfilePage/ProfilePage'
 import AuthProvider from './components/AuthProvider/AuthProvider'
 
+// Routes - это просто компонент обёртка, для того, чтобы мы могли указывать много маршрутов
+// Route - это компонент, который в element принимает компонент, который будет отрисовываться
+// а в path принимает путь.
+// index вместо path означает, что по умолчанию маршрут соответствует тому же пути, что и обёртка Route
+// с нашим лейаутом (то есть компонент main будет отрисовываться также по маршруту /)
+
 function App() {
 	return (
 		<Routes>
@@ -19,6 +25,8 @@ function App() {
 				<Route
 					path='/map'
 					element={
+						// AuthProvider это обёртка, которая делает наш маршрут защищённым от неавторизованных
+						// пользователей
 						<AuthProvider>
 							<MapPage />
 						</AuthProvider>
@@ -29,6 +37,8 @@ function App() {
 				<Route
 					path='/profile'
 					element={
+						// AuthProvider это обёртка, которая делает наш маршрут защищённым от неавторизованных
+						// пользователей
 						<AuthProvider>
 							<ProfilePage />
 						</AuthProvider>

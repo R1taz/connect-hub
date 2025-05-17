@@ -3,26 +3,40 @@ import { Formik, ErrorMessage, Form } from 'formik'
 import styles from './styles.module.css'
 import { CustomButton } from '../../ui/Button'
 import { NavLink } from 'react-router-dom'
-import { entranceSchema } from '../../../helpers/validateEntrance'
 import { BASE_URL } from '../../../constants/constants'
 import axios from 'axios'
 import СonsentСheckbox from '../../ui/СonsentСheckbox'
 
 const RecoverForm = () => {
+	// Достаём объект темы из MaterialUI
 	const theme = useTheme()
 
+	// Компонент из библиотеки Formik - аналог form
 	return (
 		<Formik
+			// Поля, которые будут в форме
 			initialValues={{
 				email: '',
 			}}
-			validationSchema={entranceSchema}
+			// Функция, которая будет выполняться при отправке формы
 			onSubmit={async (values, { setSubmitting }) => {
+				// в параметрах получаем значения и функцию установки флага выполнения отправки формы
+
+				// делаем запрос на восстановление пароля
 				await axios.post(`${BASE_URL}/recover`, values)
 
-				// logic here
+				// здесь должна быть логика
+
+				// флаг выполнения отправки формы становится не активным
 				setSubmitting(false)
 			}}
+			// Form - аналог тега form
+			// TextField - аналог инпута, в name привязывается к тому значению, которое прописали
+			// value - значение инпута, onChange, onBlur - встроенные функции Formik, которые делают
+			// определённые действия при изменении и фокусировке
+			// ErrorMessage - аналог div, в котором выводится ошибка валидации
+
+			// Box это тоже аналог div, но который лучше подходит для адаптивности
 		>
 			{({ values, handleChange, handleBlur, isSubmitting }) => (
 				<Form className={styles.form}>
@@ -42,12 +56,15 @@ const RecoverForm = () => {
 					/>
 					<ErrorMessage name='name' component='div' />
 
+					{/* Наш кастомный чекбокс */}
 					<СonsentСheckbox />
 
+					{/* Кнопка отправки запроса */}
 					<CustomButton sx={{ mt: 8, mb: 1 }} type='submit' disabled={isSubmitting}>
 						Запросить логин и пароль
 					</CustomButton>
 
+					{/* Блок с переходом на страницу регистрации */}
 					<Box sx={{ display: 'flex', alignItems: 'center' }}>
 						<Typography sx={{ color: theme.palette.secondary.main }}>Нет аккаунта?</Typography>
 						<NavLink
@@ -57,7 +74,7 @@ const RecoverForm = () => {
 								color: theme.palette.primary.main,
 							}}
 						>
-							Запросить аккаунт
+							Зарегистрироваться
 						</NavLink>
 					</Box>
 				</Form>

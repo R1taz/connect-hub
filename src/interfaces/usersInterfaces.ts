@@ -1,3 +1,5 @@
+// Здесь лежат интерфейсы, которые относятся к запросам связанным c пользователем
+
 export interface UserData {
 	id: number | null
 	username: string

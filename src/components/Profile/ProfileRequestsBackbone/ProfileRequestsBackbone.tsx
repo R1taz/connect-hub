@@ -3,17 +3,22 @@ import DividerCustom from '../../ui/DividerCustom'
 import ProfileRequest from '../ProfileRequest/ProfileRequest'
 import { useFindStreetAndProviders } from '../../../hooks/useFindStreetAndProviders'
 
+// типизация параметров ProfileRequestsBackbone
 interface Props {
 	type: TypeOrganization
 }
 
+// принимает тип
 const ProfileRequestsBackbone = ({ type }: Props) => {
+	// вызываем свою кастомную функцию, которая отдаёт нам подключения, улицы, и флаг загрузки
 	const { connections, streets, isLoading } = useFindStreetAndProviders()
 
+	// если идёт загрузка то показываем заголовк
 	if (isLoading) {
 		return <h1>Загрузка данных...</h1>
 	}
 
+	// иначе отрисовываем запросы
 	return (
 		<section>
 			{connections.map(connection => (

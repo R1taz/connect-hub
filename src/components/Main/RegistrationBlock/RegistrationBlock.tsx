@@ -4,22 +4,35 @@ import styles from './styles.module.css'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 
 const RegistrationBlock = () => {
+	// Достаём объект темы из MaterialUI
 	const theme = useTheme()
 
+	// Grid2 это компонент из библиотеки MaterialUI
+	// он принимает size которая принимает значение столбцов в грид сетки
+	// Grid2 с атрибутом container это обёртка контейнер, которая задаёт определённые стили
+	// для всей грид сетки
+
+	// Box это тоже аналог div, но который лучше подходит для адаптивности
+	// Typography это компонент, который в зависимости от значения variants равен определённому тегу
 	return (
 		<Grid2 container sx={{ mt: 5 }}>
-			<Grid2 size={3}>
-				<Typography sx={{ color: theme.palette.secondary.main }}>
-					Регистрация
-				</Typography>
+			<Grid2 size={3} sx={{ display: { xs: 'none', lg: 'block' } }}>
+				<Typography sx={{ color: theme.palette.secondary.main }}>Регистрация</Typography>
 			</Grid2>
 
-			<Grid2 size={4}>
+			<Grid2
+				size={{ xs: 12, lg: 4 }}
+				sx={{
+					display: { xs: 'flex', lg: 'block' },
+					gridColumn: { xs: 'span 12', lg: 'span 6' },
+				}}
+			>
 				<Typography variant='body1'>
-					Если у вас ещё нет аккаунта на нашем сервисе, попросите менеджера
-					помочь вам с регистрацией.
+					Если у вас ещё нет аккаунта на нашем сервисе, попросите менеджера помочь вам с
+					регистрацией.
 				</Typography>
-				<Box sx={{ display: 'flex', mt: 1 }}>
+
+				<Box sx={{ display: { xs: 'none', lg: 'flex' }, mt: 1 }}>
 					<NavLink className={styles.entrance} to='/login'>
 						<Typography
 							sx={{
@@ -35,12 +48,11 @@ const RegistrationBlock = () => {
 				</Box>
 			</Grid2>
 
-			<Grid2 size={3}></Grid2>
+			<Grid2 size={5} />
 
-			<Grid2 size={3}></Grid2>
-			<Grid2 sx={{ mt: '50px' }}>
+			<Grid2 size={12} sx={{ mt: 5 }}>
 				<NavLink to='/registration' className={styles.registration}>
-					<Typography variant='h6'>ЗАПРОСИТЬ РЕГИСТРАЦИЮ</Typography>
+					<Typography variant='h6'>ЗАРЕГИСТРИРОВАТЬСЯ</Typography>
 					<ArrowOutwardRoundedIcon sx={{ marginLeft: 1, fontSize: 30 }} />
 				</NavLink>
 			</Grid2>

@@ -1,5 +1,6 @@
 import { Divider } from '@mui/material'
 
+// Компонент с линией во всю ширину
 const DividerCustom = () => {
 	return (
 		<Divider

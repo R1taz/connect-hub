@@ -8,15 +8,22 @@ interface Props {
 }
 
 const ProfileTitle = ({ type, acceptStatus, isSuperUser }: Props) => {
+	// Здесь мы из хранилища Redux Toolkit достаём тип организации
 	const theme = useTheme()
 
+	// если аккаунт подтверждён, то status равен ему, иначе если ты супер юзер, то status равен
+	// принято, иначе если ты не подтверждён, то status равен ожидание
 	const status = acceptStatus ? acceptStatus : isSuperUser ? 'Принято' : 'Ожидание'
+
 	let colorStatus
 
+	// в зависимости от статуса подтверждённости выбирается цвет
 	if (acceptStatus && acceptStatus === 'Ожидание') colorStatus = '#000000'
 	if ((acceptStatus && acceptStatus === 'Принято') || isSuperUser) colorStatus = '#319025'
 	if (acceptStatus && acceptStatus === 'Отклонено') colorStatus = '#A20404'
 
+	// Box это тоже аналог div, но который лучше подходит для адаптивности
+	// Typography это компонент, который в зависимости от значения variants равен определённому тегу
 	return (
 		<>
 			<Box sx={{ mt: 6, display: 'flex' }}>
@@ -28,6 +35,7 @@ const ProfileTitle = ({ type, acceptStatus, isSuperUser }: Props) => {
 				</Typography>
 			</Box>
 
+			{/* Если ты подтверждён или супер юзер, то ты можешь видеть запросы на подключение */}
 			{(acceptStatus || isSuperUser) && (
 				<Box sx={{ mt: 6, display: 'flex', justifyContent: 'space-between' }}>
 					<Typography variant='h4'>ЗАПРОСЫ НА ПОДСОЕДИНЕНИЕ</Typography>

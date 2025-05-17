@@ -5,11 +5,17 @@ import userSVG from '../../assets/user.svg'
 import { useAppSelector } from '../../hooks/react-redux'
 
 const Navigation = () => {
+	// Достаём объект темы из MaterialUI
 	const theme = useTheme()
+
+	// Достаём объект локации на сайте из библиотеки React Router Dom
 	const location = useLocation()
 
+	// Достаём флаг инициализации из библиотеки Redux Toolkit
 	const isAuth = useAppSelector(state => state.authSlice.isAuth)
 
+	// Box это тоже аналог div, но который лучше подходит для адаптивности
+	// NavLink это аналог тега a. Отличие его в том, что он делает переход без перезагрузки страницы
 	return (
 		<Box sx={{ display: 'flex', alignItems: 'center' }}>
 			<NavLink to='/' className={styles.link}>

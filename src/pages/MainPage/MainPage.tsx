@@ -8,6 +8,8 @@ import Footer from '../../components/Main/Footer/Footer'
 import RegistrationBlock from '../../components/Main/RegistrationBlock/RegistrationBlock'
 
 const MainPage = () => {
+	// Здесь все компоненты (блоки) нашей главной страницы
+	// Divider это компонент из MaterialUI, который рисует нам линию
 	return (
 		<>
 			<Title />

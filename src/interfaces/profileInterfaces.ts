@@ -1,3 +1,5 @@
+// Здесь лежат интерфейсы, которые относятся к запросам связанным c профилем
+
 export interface IConnection {
 	id: number
 	created_at: string

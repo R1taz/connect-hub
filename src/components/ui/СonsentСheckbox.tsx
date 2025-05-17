@@ -1,5 +1,6 @@
 import { Checkbox, FormControlLabel, useTheme } from '@mui/material'
 
+// компонент с чекбоксом
 const СonsentСheckbox = () => {
 	const theme = useTheme()
 

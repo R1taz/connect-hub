@@ -1,5 +1,7 @@
 import { AcceptStatus } from './usersInterfaces'
 
+// Здесь лежат интерфейсы, которые относятся к запросам связанным c картой
+
 export interface IPillar {
 	id: number
 	longitude: string

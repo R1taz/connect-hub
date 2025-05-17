@@ -14,6 +14,7 @@ import { Box, Modal, Typography } from '@mui/material'
 import MapForm from './MapForm/MapForm'
 import { useGetOrganizationsQuery } from '../../api/authApi'
 
+// Типизация параметров MapComponent
 interface Props {
 	pillars: IPillar[]
 	pillarLinks: IPillarLink[]
@@ -22,6 +23,8 @@ interface Props {
 	refetchConnectionLinks: () => void
 }
 
+// Принимает столбы, линии, подключённые линии, тип организации, функцию перезапроса за подключёнными
+// линиями
 const MapComponent = ({
 	pillars,
 	pillarLinks,
@@ -29,34 +32,58 @@ const MapComponent = ({
 	type,
 	refetchConnectionLinks,
 }: Props) => {
+	// Из Redux Toolkit достаём название нашей организации и id нашей организации
 	const nameOrg = useAppSelector(state => state.userSlice.user?.user_info?.organization.name)
 	const ownerId = useAppSelector(state => state.userSlice.user?.user_info?.organization.id)
 
+	// Вызываем функцию из библиотеки Redux Toolkit Query, которая делает запрос за получением организаций.
+	// В качестве ответа мы получаем флаг загрузки данных и данные
 	const { data, isLoading } = useGetOrganizationsQuery()
 
+	// Создаём локальное состояние c помощью хука из React - useState,
+	// которое будет содержать массив id выбранных линий
 	const [selectedLinks, setSelectedLinks] = useState<number[]>([])
 
+	// функция установки выбранных линий
 	const handleSetLinks = (linkId: number) => {
-		if (type === 'электросетевая компания') return
+		// сохраняем в локальное состояние
 		setSelectedLinks(prev => {
-			if (prev.find(item => item === linkId)) return prev
-			else return [...prev, linkId]
+			if (prev.find(item => item === linkId)) {
+				// если выбранная линия найдена в массиве, то мы удаляем её из массива
+				return prev.filter(item => item !== linkId)
+			} else {
+				// иначе устанавливаем
+				return [...prev, linkId]
+			}
 		})
 	}
 
+	// Создаём локальное состояние c помощью хука из React - useState,
+	// которое будет содержать состояние открытости закрытости
 	const [isOpen, setIsOpen] = useState(false)
+
+	// Создаём локальное состояние c помощью хука из React - useState,
+	// которое будет содержать выбранные координаты
 	const [coords, setCoords] = useState<[number, number]>([0, 0])
+
+	// Создаём локальное состояние c помощью хука из React - useState,
+	// которое будет содержать состояние установки координат или выбранных линий
 	const [isSetData, setIsSetData] = useState(false)
 
+	// функция установки координат
 	const handleSetCoords = (e: any) => {
-		if (!isSetData) return
+		// Устанавливаем значение открытости в true
 		setIsOpen(true)
+		// Получаем выбранные координаты
 		const mapCoords = e.get('coords') as [number, number]
+		// Устанавливаем их в локальное состояние координат
 		setCoords(mapCoords)
 	}
 
+	// Если организации загружаются, то показываем заголовок
 	if (isLoading) return <h1>Загрузка данных...</h1>
 
+	// Иначе отрисовываем карту
 	return (
 		<>
 			<YMaps query={{ apikey: config.YANDEX_API_KEY }}>
@@ -71,11 +98,15 @@ const MapComponent = ({
 						style={{ width: '100%', height: '100%' }}
 						defaultState={{ center: BASE_COORDINATES, zoom: 12 }}
 						onClick={(e: { get: (arg0: string) => [number, number] }) => {
+							// Если по карте кликнул магистральный провайдер или состояние установки данных равно false
+							// то выход из функции
 							if (type === 'магистральный провайдер' || !isSetData) return
+							// иначе получаем координаты вызываем функцию установки координат
 							const mapCoords = e.get('coords') as [number, number]
 							handleSetCoords(mapCoords)
 						}}
 					>
+						{/* Отрисовываем наши столбы */}
 						{pillars.map((pillar, index) => (
 							<Placemark
 								key={index}
@@ -88,13 +119,16 @@ const MapComponent = ({
 							/>
 						))}
 
+						{/* Отрисовываем наши линии */}
 						{pillarLinks.map((pillarLink, index) => (
 							<Polyline
 								key={index}
 								geometry={createGeometryPolyline(pillarLink.pole_a, pillarLink.pole_b)}
 								options={polylineOptions({ connectionLinks, pillarLink, type, selectedLinks })}
 								onClick={() => {
+									// если тип = 'электросетевая компания', то выход из функции
 									if (!isSetData || type === 'электросетевая компания') return
+									// иначе вызываем функцию установки выбранных линий
 									handleSetLinks(pillarLink.id)
 								}}
 							/>
@@ -103,6 +137,7 @@ const MapComponent = ({
 				</div>
 			</YMaps>
 
+			{/* Компонент с кнопками под картой */}
 			<MapButtons
 				type={type}
 				isSetData={isSetData}
@@ -113,6 +148,7 @@ const MapComponent = ({
 				refetchConnectionLinks={refetchConnectionLinks}
 			/>
 
+			{/* Модальное окно из MaterialUI. Если состояние открытости (isOpen) = true, то показываем его */}
 			<Modal open={isOpen} sx={{ backdropFilter: 'blur(2px)' }}>
 				<Box
 					sx={{
@@ -132,11 +168,14 @@ const MapComponent = ({
 					}}
 				>
 					<Typography variant='h4'>ДОБАВИТЬ НОВУЮ ОПОРУ</Typography>
+					{/* Здесь форма для создания нового столба */}
 					<MapForm
 						coords={coords}
 						ownerId={ownerId!}
 						organizations={data!}
 						onClose={() => {
+							// функция закрывания
+							// сбрасываем локальные состояния координат, открытости и состояние установки данных
 							setCoords([0, 0])
 							setIsSetData(false)
 							setIsOpen(false)

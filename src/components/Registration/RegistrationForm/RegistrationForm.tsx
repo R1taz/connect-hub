@@ -20,20 +20,31 @@ import { useGetOrganizationsQuery, useRegistrationMutation } from '../../../api/
 import { TypeOrganization } from '../../../interfaces/usersInterfaces'
 
 const RegistrationForm = () => {
+	// Достаём объект темы из MaterialUI
 	const theme = useTheme()
+
+	// Достаём функцию навигации из React Router Dom
 	const navigate = useNavigate()
 
+	// Вызываем функцию из библиотеки Redux Toolkit Query, которая делает запрос за организациями.
+	// В качестве ответа мы получаем флаг загрузки данных и данные
 	const { data, isLoading } = useGetOrganizationsQuery()
 
+	// Вызываем функцию из библиотеки Redux Toolkit Query, которая отдаёт нам функции регистрации.
 	const [registration] = useRegistrationMutation()
 
+	// Состояния и функции изменения этих состояний открытости и закрытости меню
+	// (меню с организациями и меню с типами организаций)
 	const [anchorElType, setAnchorElType] = useState<null | HTMLElement>(null)
 	const [anchorElNameOrg, setAnchorElNameOrg] = useState<null | HTMLElement>(null)
 
+	// Если флаг загрузки true, то отображается наш заголовок
 	if (isLoading) return <h1>Загрузка данных...</h1>
 
+	// Иначе отображается форма - Компонент из библиотеки Formik
 	return (
 		<Formik
+			// Поля, которые будут в форме
 			initialValues={{
 				username: '',
 				surname: '',
@@ -43,10 +54,14 @@ const RegistrationForm = () => {
 				organizationId: null as number | null,
 				email: '',
 			}}
+			// Функция, которая будет выполняться при отправке формы
 			onSubmit={async (values, { setSubmitting }) => {
+				// в параметрах получаем значения и функцию установки флага выполнения отправки формы
 				try {
+					// если не выбрана организация или тип организации, тогда регистрация отменяется
 					if (!values.organizationId || !values.type) return
 
+					// здесь происходит запрос на регистрацию
 					await registration({
 						username: values.username,
 						surname: values.surname,
@@ -56,16 +71,30 @@ const RegistrationForm = () => {
 						type: values.type,
 						email: values.email,
 					})
+
+					// после этого происходит редирект на логин
 					navigate('/login')
 				} catch (error) {
+					// иначе в консоль выводится ошибка
 					console.log(error)
 				} finally {
+					// флаг выполнения отправки формы становится не активным
 					setSubmitting(false)
 				}
 			}}
 		>
 			{({ values, handleChange, handleBlur, isSubmitting, setFieldValue }) => {
+				// находим выбранную организацию если она есть
 				const selectedOrg = data?.find(item => item.id === values.organizationId)
+
+				// Form - аналог тега form
+				// TextField - аналог инпута, в name привязывается к тому значению, которое прописали
+				// value - значение инпута, onChange, onBlur - встроенные функции Formik, которые делают
+				// определённые действия при изменении и фокусировке
+				// ErrorMessage - аналог div, в котором выводится ошибка валидации
+				// FormControl - Обёртка, которая принимает TextField и в качестве value устанавливает выбранный
+				// menuItem
+				// Menu, MenuItem - меню и его элементы, которые будут отображаться когда меню открыто
 				return (
 					<Form className={styles.form}>
 						<TextField
@@ -83,7 +112,6 @@ const RegistrationForm = () => {
 							placeholder='ЛОГИН ДЛЯ ВХОДА В АККАУНТ'
 						/>
 						<ErrorMessage name='username' component='div' />
-
 						<TextField
 							variant='standard'
 							type='text'
@@ -99,7 +127,6 @@ const RegistrationForm = () => {
 							placeholder='ПАРОЛЬ ДЛЯ ВХОДА В АККАУНТ'
 						/>
 						<ErrorMessage name='password' component='div' />
-
 						<TextField
 							variant='standard'
 							type='text'
@@ -115,17 +142,21 @@ const RegistrationForm = () => {
 							placeholder='ФАМИЛИЯ ПОЛЬЗОВАТЕЛЯ'
 						/>
 						<ErrorMessage name='surname' component='div' />
-
 						<FormControl fullWidth variant='standard' sx={{ my: 4, display: 'block' }}>
 							<TextField
 								fullWidth
 								variant='standard'
 								name='type'
 								value={
+									// Если тип выбран, то первую букву слова делаем большой, иначе присваиваем пустое
+									// значение
 									values.type ? values.type.charAt(0).toUpperCase() + values.type.slice(1) : ''
 								}
+								// при клике открываем текущее меню
 								onClick={e => setAnchorElType(e.currentTarget)}
 								placeholder='ТИП ОРГАНИЗАЦИИ'
+								// InputProps делает это поля только для чтения и меня иконку в зависимости от открытости
+								// закрытости меню
 								InputProps={{
 									readOnly: true,
 									endAdornment: (
@@ -142,17 +173,18 @@ const RegistrationForm = () => {
 								}}
 							/>
 						</FormControl>
-
 						<ErrorMessage name='type' component='div' />
-
 						<Menu
 							anchorEl={anchorElType}
+							// если anchorElType не null, то меню открыто и это выражение вернёт true
 							open={Boolean(anchorElType)}
+							// вешаем функцию закрывания меню, которая обнуляет значение в состоянии открытости меню
 							onClose={() => setAnchorElType(null)}
 							PaperProps={{ sx: { width: anchorElType?.offsetWidth || 'auto' } }}
 						>
 							<MenuItem
 								onClick={() => {
+									// присваиваем тип и закрываем меню
 									setFieldValue('type', 'электросетевая компания')
 									setAnchorElType(null)
 								}}
@@ -161,6 +193,7 @@ const RegistrationForm = () => {
 							</MenuItem>
 							<MenuItem
 								onClick={() => {
+									// присваиваем тип и закрываем меню
 									setFieldValue('type', 'магистральный провайдер')
 									setAnchorElType(null)
 								}}
@@ -168,19 +201,23 @@ const RegistrationForm = () => {
 								Магистральный провайдер
 							</MenuItem>
 						</Menu>
-
 						<FormControl fullWidth variant='standard' sx={{ my: 4, display: 'block' }}>
 							<TextField
 								fullWidth
 								variant='standard'
 								name='organizationId'
 								value={
+									// Если тип выбран, то первую букву слова делаем большой, иначе присваиваем пустое
+									// значение
 									selectedOrg
 										? selectedOrg.name.charAt(0).toUpperCase() + selectedOrg.name.slice(1)
 										: ''
 								}
+								// При клике открываем текущее меню
 								onClick={e => setAnchorElNameOrg(e.currentTarget)}
 								placeholder='НАИМЕНОВАНИЕ ОРГАНИЗАЦИИ'
+								// InputProps делает это поля только для чтения и меня иконку в зависимости от открытости
+								// закрытости меню
 								InputProps={{
 									readOnly: true,
 									endAdornment: (
@@ -197,12 +234,12 @@ const RegistrationForm = () => {
 								}}
 							/>
 						</FormControl>
-
 						<ErrorMessage name='organizationId' component='div' />
-
 						<Menu
 							anchorEl={anchorElNameOrg}
+							// если anchorElType не null, то меню открыто и это выражение вернёт true
 							open={Boolean(anchorElNameOrg)}
+							// вешаем функцию закрывания меню, которая обнуляет значение в состоянии открытости меню
 							onClose={() => setAnchorElNameOrg(null)}
 							PaperProps={{ sx: { width: anchorElNameOrg?.offsetWidth || 'auto' } }}
 						>
@@ -219,7 +256,6 @@ const RegistrationForm = () => {
 									</MenuItem>
 								))}
 						</Menu>
-
 						<TextField
 							variant='standard'
 							type='tel'
@@ -235,7 +271,6 @@ const RegistrationForm = () => {
 							placeholder='ТЕЛЕФОН ОБРАТНОЙ СВЯЗИ'
 						/>
 						<ErrorMessage name='phone_num' component='div' />
-
 						<TextField
 							variant='standard'
 							type='email'
@@ -252,12 +287,15 @@ const RegistrationForm = () => {
 						/>
 						<ErrorMessage name='email' component='div' />
 
+						{/* Компонент с чекбоксом */}
 						<СonsentСheckbox />
 
+						{/* Кнопка отправки функции */}
 						<CustomButton sx={{ mt: 5, mb: 1 }} type='submit' disabled={isSubmitting}>
 							Отправить
 						</CustomButton>
 
+						{/* Блок с переходом на форму логина */}
 						<Box sx={{ display: 'flex', alignItems: 'center' }}>
 							<Typography
 								sx={{

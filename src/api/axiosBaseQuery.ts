@@ -13,6 +13,11 @@ type axiosBaseQueryResponse = BaseQueryFn<
 	unknown
 >
 
+// Это базовая конструкция, которая создаёт запросы
+// с помощью Axios и оборачивает их в формат, понятный Redux Toolkit Query.
+// Она позволяет подключить кастомную логику запросов к RTK Query
+// вместо стандартного fetch и использовать Axios для удобной работы с API.
+
 export const axiosBaseQuery = (): axiosBaseQueryResponse => {
 	return async ({ url, method, data, params }) => {
 		try {

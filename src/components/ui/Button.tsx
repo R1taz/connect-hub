@@ -1,5 +1,6 @@
 import { Button, styled } from '@mui/material'
 
+// Компонент с кастомной кнопкой
 export const CustomButton = styled(Button)(() => ({
 	backgroundColor: 'black',
 	color: 'white',
