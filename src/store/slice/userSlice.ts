@@ -11,6 +11,7 @@ const initialState: State = {
 		email: '',
 		username: '',
 		user_info: null,
+		is_superuser: false,
 	},
 }
 

@@ -18,7 +18,7 @@ const RecoverForm = () => {
 			}}
 			validationSchema={entranceSchema}
 			onSubmit={async (values, { setSubmitting }) => {
-				const response = await axios.post(`${BASE_URL}/recover`, values)
+				await axios.post(`${BASE_URL}/recover`, values)
 
 				// logic here
 				setSubmitting(false)
@@ -44,18 +44,12 @@ const RecoverForm = () => {
 
 					<СonsentСheckbox />
 
-					<CustomButton
-						sx={{ mt: 8, mb: 1 }}
-						type='submit'
-						disabled={isSubmitting}
-					>
+					<CustomButton sx={{ mt: 8, mb: 1 }} type='submit' disabled={isSubmitting}>
 						Запросить логин и пароль
 					</CustomButton>
 
 					<Box sx={{ display: 'flex', alignItems: 'center' }}>
-						<Typography sx={{ color: theme.palette.secondary.main }}>
-							Нет аккаунта?
-						</Typography>
+						<Typography sx={{ color: theme.palette.secondary.main }}>Нет аккаунта?</Typography>
 						<NavLink
 							to='/registration'
 							style={{

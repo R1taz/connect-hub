@@ -1,4 +1,4 @@
-import { Box, Divider, Grid2, Stack, Typography, useTheme } from '@mui/material'
+import { Box, Grid2, Stack, Typography, useTheme } from '@mui/material'
 import logoSVG from '../../../assets/logo.svg'
 import styles from './styles.module.css'
 import DividerCustom from '../../ui/DividerCustom'
@@ -14,9 +14,7 @@ const Footer = () => {
 				</Grid2>
 
 				<Grid2 size={4}>
-					<Typography sx={{ color: theme.palette.secondary.main }}>
-						Навигация
-					</Typography>
+					<Typography sx={{ color: theme.palette.secondary.main }}>Навигация</Typography>
 
 					<Stack sx={{ mt: 2 }}>
 						<Typography>Главная</Typography>
@@ -24,9 +22,7 @@ const Footer = () => {
 						<Typography>Контакты</Typography>
 					</Stack>
 
-					<Typography sx={{ mt: 3, color: theme.palette.secondary.main }}>
-						Адрес
-					</Typography>
+					<Typography sx={{ mt: 3, color: theme.palette.secondary.main }}>Адрес</Typography>
 					<Typography sx={{ mt: 1 }}>Город, Улица, Дом</Typography>
 				</Grid2>
 
@@ -42,9 +38,7 @@ const Footer = () => {
 
 			<DividerCustom />
 
-			<Box
-				sx={{ mt: 5, mb: 3, display: 'flex', justifyContent: 'space-between' }}
-			>
+			<Box sx={{ mt: 5, mb: 3, display: 'flex', justifyContent: 'space-between' }}>
 				<Typography>Политика коденфициальности</Typography>
 				<Typography>Cookies</Typography>
 			</Box>
