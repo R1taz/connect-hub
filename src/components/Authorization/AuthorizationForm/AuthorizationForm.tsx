@@ -3,42 +3,46 @@ import { Formik, ErrorMessage, Form } from 'formik'
 import styles from './styles.module.css'
 import { CustomButton } from '../../ui/Button'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { BASE_URL } from '../../../constants/constants'
-import axios from 'axios'
-import { useDispatch } from 'react-redux'
-import { setRole } from '../../../store/slice/authSlice'
+import { useLazyAuthMeQuery, useLoginMutation } from '../../../api/authApi'
+import { useAppDispatch } from '../../../hooks/react-redux'
+import { setAuth } from '../../../store/slice/authSlice'
+import { setUser } from '../../../store/slice/userSlice'
 
 const AuthorizationForm = () => {
 	const theme = useTheme()
 	const navigate = useNavigate()
-	const dispatch = useDispatch()
+
+	const dispatch = useAppDispatch()
+	const [login] = useLoginMutation()
+	const [authMe] = useLazyAuthMeQuery()
 
 	return (
 		<Formik
 			initialValues={{
-				login: '',
+				username: '',
 				password: '',
 			}}
 			onSubmit={async (values, { setSubmitting }) => {
 				try {
-					/* const response = await axios.post<{
-						result_code: number
-						role: number
-					}>(`${BASE_URL}/login`, {
-						login: values.login,
+					const response = await login({
+						username: values.username,
 						password: values.password,
-					}) */
+					}).unwrap()
 
-					// dispatch(setRole(response.data.role))
-					navigate('/map')
-					/* if (response.data.result_code === 0) {
-						dispatch(setRole(response.data.role))
+					if (response.auth_token) {
+						localStorage.setItem('token', response.auth_token)
+						dispatch(setAuth(true))
+
+						const user = await authMe().unwrap()
+						dispatch(setUser(user))
+
 						navigate('/map')
-					} */
+					}
 
 					setSubmitting(false)
 				} catch (error) {
 					setSubmitting(false)
+					console.error('Login failed:', error)
 				}
 			}}
 		>
@@ -47,10 +51,10 @@ const AuthorizationForm = () => {
 					<TextField
 						variant='standard'
 						type='text'
-						name='login'
+						name='username'
 						onChange={handleChange}
 						onBlur={handleBlur}
-						value={values.login}
+						value={values.username}
 						sx={{
 							my: 4,
 							display: 'block',

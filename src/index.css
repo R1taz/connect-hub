@@ -33,3 +33,17 @@ p {
 	-moz-filter: grayscale(1);
 	-o-filter: grayscale(1);
 }
+
+body::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+body::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+	background-color: #832590;
+	border-radius: 4px;
+}

@@ -1,20 +1,43 @@
 import { Box, Typography, useTheme } from '@mui/material'
-import { useAppSelector } from '../../../hooks/react-redux'
+import { AcceptStatus, TypeOrganization } from '../../../interfaces/usersInterfaces'
 
-const ProfileTitle = () => {
-	const role = useAppSelector(state => state.authSlice.role)
+interface Props {
+	type: TypeOrganization
+	acceptStatus: AcceptStatus | undefined
+	isSuperUser: boolean
+}
+
+const ProfileTitle = ({ type, acceptStatus, isSuperUser }: Props) => {
 	const theme = useTheme()
 
-	return (
-		<Box sx={{ mt: 12, display: 'flex', justifyContent: 'space-between' }}>
-			<Typography variant='h4'>ЗАПРОСЫ НА ПОДСОЕДИНЕНИЕ</Typography>
+	const status = acceptStatus ? acceptStatus : isSuperUser ? 'Принято' : 'Ожидание'
+	let colorStatus
 
-			{role === 1 && (
-				<Typography sx={{ color: theme.palette.secondary.main }}>
-					статус
+	if (acceptStatus && acceptStatus === 'Ожидание') colorStatus = '#000000'
+	if ((acceptStatus && acceptStatus === 'Принято') || isSuperUser) colorStatus = '#319025'
+	if (acceptStatus && acceptStatus === 'Отклонено') colorStatus = '#A20404'
+
+	return (
+		<>
+			<Box sx={{ mt: 6, display: 'flex' }}>
+				<Typography variant='h4' sx={{ my: 5 }}>
+					Статус подтверждения аккаунта:{' '}
 				</Typography>
+				<Typography variant='h4' sx={{ ml: 2, my: 5, display: 'inline-block', color: colorStatus }}>
+					{status}
+				</Typography>
+			</Box>
+
+			{(acceptStatus || isSuperUser) && (
+				<Box sx={{ mt: 6, display: 'flex', justifyContent: 'space-between' }}>
+					<Typography variant='h4'>ЗАПРОСЫ НА ПОДСОЕДИНЕНИЕ</Typography>
+
+					{type === 'магистральный провайдер' && (
+						<Typography sx={{ color: theme.palette.secondary.main }}>статус</Typography>
+					)}
+				</Box>
 			)}
-		</Box>
+		</>
 	)
 }
 

@@ -1,2 +1,2 @@
-export const BASE_COORDINATES = [56.33, 43.995302]
-export const BASE_URL = 'http://localhost:8080'
+export const BASE_COORDINATES = [56.231098, 43.490533]
+export const BASE_URL = 'http://127.0.0.1:8000/api/v1/'

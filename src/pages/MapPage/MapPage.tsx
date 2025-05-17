@@ -6,12 +6,48 @@ import Supports from '../../components/MapComponent/Supports/Supports'
 import SubInformation from '../../components/MapComponent/SubInformation/SubInformation'
 import Footer from '../../components/Main/Footer/Footer'
 import DividerCustom from '../../components/ui/DividerCustom'
-import { useAppSelector } from '../../hooks/react-redux'
+import { useAppDispatch, useAppSelector } from '../../hooks/react-redux'
+import {
+	useGetConnectionLinksQuery,
+	useGetPillarLinksQuery,
+	useGetPillarsQuery,
+} from '../../api/mapApi'
+import { useEffect } from 'react'
+import { setConnectionLinks, setPillarLinks, setPillars } from '../../store/slice/mapSlice'
 
 const MapPage = () => {
-	const role = useAppSelector(state => state.authSlice.role)
+	const type = useAppSelector(state => state.userSlice.user?.user_info?.type)
+
 	const pillars = useAppSelector(state => state.mapSlice.pillars)
-	const locations = pillars.map(pillar => pillar.coordinates)
+	const pillarLinks = useAppSelector(state => state.mapSlice.pillarLinks)
+	const connectionLinks = useAppSelector(state => state.mapSlice.connectionLinks)
+	const dispatch = useAppDispatch()
+
+	const { data: dataPillars, isLoading: isLoadingPillars } = useGetPillarsQuery()
+	const { data: dataPillarLinks, isLoading: isLoadingPillarLinks } = useGetPillarLinksQuery()
+	const {
+		data: dataConnectionLinks,
+		isLoading: isLoadingConnectionLinks,
+		refetch,
+	} = useGetConnectionLinksQuery()
+
+	useEffect(() => {
+		if (!isLoadingPillars && dataPillars) {
+			dispatch(setPillars(dataPillars))
+		}
+	}, [dataPillars, isLoadingPillars])
+
+	useEffect(() => {
+		if (!isLoadingPillarLinks && dataPillarLinks) {
+			dispatch(setPillarLinks(dataPillarLinks))
+		}
+	}, [dataPillarLinks, isLoadingPillarLinks])
+
+	useEffect(() => {
+		if (!isLoadingConnectionLinks && dataConnectionLinks) {
+			dispatch(setConnectionLinks(dataConnectionLinks.connection_links))
+		}
+	}, [dataConnectionLinks, isLoadingPillarLinks])
 
 	return (
 		<>
@@ -19,38 +55,33 @@ const MapPage = () => {
 			<Divider></Divider>
 			<SubInformation />
 
-			<MapComponent />
-
-			{role === 3 ||
-				(role === 1 && (
-					<Grid2 container sx={{ marginBottom: 25 }}>
-						<Grid2 size={8}></Grid2>
-						<Grid2 size={4}>
-							<CustomButton sx={{ width: '100%', padding: '25px 20px' }}>
-								ДОБАВИТЬ ОПОРУ
-							</CustomButton>
-						</Grid2>
-					</Grid2>
-				))}
+			{isLoadingPillarLinks && isLoadingConnectionLinks && <h1>Данные загружаются...</h1>}
+			{!isLoadingPillarLinks && !isLoadingConnectionLinks && (
+				<MapComponent
+					pillars={pillars}
+					pillarLinks={pillarLinks}
+					connectionLinks={connectionLinks}
+					type={type!}
+					refetchConnectionLinks={refetch}
+				/>
+			)}
 
 			<DividerCustom />
 
-			<Supports
-				name='УЛ. РОЖДЕСТВЕНСКАЯ 7'
-				location={locations[0]}
-				rating='5'
-			/>
-			<DividerCustom />
-			<Supports name='УЛ. ЛЕНИНА 34А' location={locations[1]} rating='4' />
-			<DividerCustom />
-			<Supports
-				name='УЛ. ЗЕЛЕНОДОЛЬСКАЯ 54'
-				location={locations[2]}
-				rating='3'
-			/>
-			<DividerCustom />
-			<Supports name='УЛ. БЕЛИНСКОГО 41' location={locations[3]} rating='1' />
-			<DividerCustom />
+			<section>
+				{isLoadingPillars && <h1>Данные загружаются...</h1>}
+				{!isLoadingPillars &&
+					pillars.map(pillar => (
+						<article key={pillar.id}>
+							<Supports
+								name={`${pillar.street}, ${pillar.building}${pillar.index ? pillar.index : ''}`}
+								location={`${pillar.longitude} ${pillar.latitude}`}
+								max_connections={pillar.max_connections}
+							/>
+							<DividerCustom />
+						</article>
+					))}
+			</section>
 
 			<Footer />
 		</>

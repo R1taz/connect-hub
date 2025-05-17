@@ -2,38 +2,27 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 interface State {
-	role: string
-	nameOrganization: string
-	notifications: {
-		id: number
-		street: string
-		coordinates: [number, number]
-		organizationProvider: string
-		status: string
-	}[]
+	isInitialized: boolean
+	isAuth: boolean
 }
 
 const initialState: State = {
-	role: 'Backbone provider',
-	nameOrganization: 'ООО МТС',
-	notifications: [],
+	isInitialized: false,
+	isAuth: false,
 }
 
 export const authSlice = createSlice({
 	name: 'authSlice',
 	initialState,
 	reducers: {
-		setRole(state, action: PayloadAction<string>) {
-			state.role = action.payload
+		setAuth(state, action: PayloadAction<boolean>) {
+			state.isAuth = action.payload
 		},
-		registration(state, action: PayloadAction<string>) {
-			state.nameOrganization = action.payload
-		},
-		addNotification(state, action) {
-			state.notifications = action.payload
+		setInitialized(state, action: PayloadAction<boolean>) {
+			state.isInitialized = action.payload
 		},
 	},
 })
 
-export const { setRole, registration } = authSlice.actions
+export const { setAuth, setInitialized } = authSlice.actions
 export default authSlice.reducer

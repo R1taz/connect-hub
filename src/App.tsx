@@ -7,6 +7,7 @@ import MapPage from './pages/MapPage/MapPage'
 import ContactsPage from './pages/ContactsPage/ContactsPage'
 import RecoverPasswordPage from './pages/RecoverPasswordPage/RecoverPasswordPage'
 import ProfilePage from './pages/ProfilePage/ProfilePage'
+import AuthProvider from './components/AuthProvider/AuthProvider'
 
 function App() {
 	return (
@@ -15,10 +16,24 @@ function App() {
 				<Route index element={<Main />} />
 				<Route path='/registration' element={<RegistrationPage />} />
 				<Route path='/login' element={<AuthorizationPage />} />
-				<Route path='/map' element={<MapPage />} />
+				<Route
+					path='/map'
+					element={
+						<AuthProvider>
+							<MapPage />
+						</AuthProvider>
+					}
+				/>
 				<Route path='/contacts' element={<ContactsPage />} />
 				<Route path='/recover' element={<RecoverPasswordPage />} />
-				<Route path='/profile' element={<ProfilePage />} />
+				<Route
+					path='/profile'
+					element={
+						<AuthProvider>
+							<ProfilePage />
+						</AuthProvider>
+					}
+				/>
 			</Route>
 		</Routes>
 	)

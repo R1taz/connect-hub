@@ -1,70 +1,40 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-
-interface IPillar {
-	id: number
-	location: [number, number]
-	maxConnection: number
-	currentConnection: number
-	factConnection: number
-	userId: number
-	status: string
-}
+import { IConnectionLink, IPillar, IPillarLink } from '../../interfaces/mapInterfaces'
 
 interface State {
-	pillars: Pillar[]
-}
-
-interface Pillar {
-	street: string
-	coordinates: [number, number]
-	rating: number
-	status: string
+	pillars: IPillar[]
+	pillarLinks: IPillarLink[]
+	connectionLinks: IConnectionLink[]
 }
 
 const initialState: State = {
-	pillars: [
-		{
-			street: 'УЛ. РОЖДЕСТВЕНСКАЯ 7',
-			coordinates: [56.330176, 43.997982],
-			rating: 5,
-			status: 'ОЖИДАНИЕ',
-		},
-		{
-			street: 'УЛ. ЛЕНИНА 34А',
-			coordinates: [56.285413, 43.930088],
-			rating: 4,
-			status: 'ПРИНЯТО',
-		},
-		{
-			street: 'УЛ. ЗЕЛЕНОДОЛЬСКАЯ 54',
-			coordinates: [56.311152, 43.92521],
-			rating: 3,
-			status: 'ОТКЛОНЕНО',
-		},
-		{
-			street: 'УЛ. БЕЛИНСКОГО 41',
-			coordinates: [56.313019, 44.007747],
-			rating: 1,
-			status: 'ОЖИДАНИЕ',
-		},
-	],
+	pillars: [],
+	pillarLinks: [],
+	connectionLinks: [],
 }
 
 export const mapSlice = createSlice({
 	name: 'mapSlice',
 	initialState,
 	reducers: {
-		setPillars(state, action) {
+		setPillars(state, action: PayloadAction<IPillar[]>) {
 			state.pillars = action.payload
 		},
-		addPillar(state, action: PayloadAction<Pillar>) {
+		addPillar(state, action: PayloadAction<IPillar>) {
 			state.pillars.push(action.payload)
 		},
-		removePillar(state, action) {
-			state.pillars = state.pillars.filter(pillar => pillar !== action.payload)
+		setPillarLinks(state, action: PayloadAction<IPillarLink[]>) {
+			state.pillarLinks = action.payload
+		},
+		setConnectionLinks(state, action: PayloadAction<IConnectionLink[]>) {
+			state.connectionLinks = action.payload
+		},
+		addConnectionLinks(state, action: PayloadAction<IConnectionLink>) {
+			state.connectionLinks.push(action.payload)
 		},
 	},
 })
 
-export const { setPillars, addPillar, removePillar } = mapSlice.actions
+export const { setPillars, addPillar, setPillarLinks, setConnectionLinks, addConnectionLinks } =
+	mapSlice.actions
 export default mapSlice.reducer
