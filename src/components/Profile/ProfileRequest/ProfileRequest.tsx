@@ -5,10 +5,10 @@ import { formatStatus } from '../../../helpers/formatStatus'
 import { useAppSelector } from '../../../hooks/react-redux'
 
 interface Props {
-	street: string
+	street: string | string[]
 	status?: number
 	type?: TypeOrganization
-	currentNameOrganization: string
+	currentNameOrganization: string | string[]
 	pillarId?: number
 	answer?: 'pole_a_answer' | 'pole_b_answer'
 	refetchConnectionLinks?: () => void
@@ -43,13 +43,34 @@ const ProfileRequests = ({
 					justifyContent: 'space-between',
 				}}
 			>
-				<Box sx={{ width: '25%' }}>
-					<Typography sx={{ fontSize: '20px' }}>{street.toUpperCase()}</Typography>
-					{/* <Typography>{location}</Typography> */}
+				<Box sx={{}}>
+					{!Array.isArray(street) ? (
+						<Typography sx={{ fontSize: '20px' }}>{street}</Typography>
+					) : (
+						<Stack direction='column' spacing={2}>
+							{street.map((s, i) => (
+								<Typography key={i} sx={{ fontSize: '20px' }}>
+									{s}
+								</Typography>
+							))}
+						</Stack>
+					)}
 				</Box>
 
-				{type === 'электросетевая компания' && (
-					<Typography>{currentNameOrganization.toUpperCase()}</Typography>
+				{(type === 'электросетевая компания' || isSuperUser) && (
+					<Box>
+						{!Array.isArray(currentNameOrganization) ? (
+							<Typography>{currentNameOrganization}</Typography>
+						) : (
+							<Stack direction='column' spacing={2}>
+								{currentNameOrganization.map((name, i) => (
+									<Typography key={i} sx={{ fontSize: '20px' }}>
+										{name}
+									</Typography>
+								))}
+							</Stack>
+						)}
+					</Box>
 				)}
 
 				<Box>

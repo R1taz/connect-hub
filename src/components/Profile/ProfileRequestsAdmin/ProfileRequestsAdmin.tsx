@@ -1,36 +1,42 @@
 import { useEffect } from 'react'
-import { useGetConnectionQuery } from '../../../api/profileApi'
 import { useAppDispatch, useAppSelector } from '../../../hooks/react-redux'
-import { setConnection } from '../../../store/slice/profileSlice'
+import { setOrganizations } from '../../../store/slice/profileSlice'
 import ProfileRequest from '../ProfileRequest/ProfileRequest'
 import DividerCustom from '../../ui/DividerCustom'
+import { useGetOrganizationsQuery } from '../../../api/authApi'
+import { useFindStreetAndProviders } from '../../../hooks/useFindStreetAndProviders'
 
 const ProfileRequestsAdmin = () => {
-	const connection = useAppSelector(state => state.profileSlice.connections)
+	const organizations = useAppSelector(state => state.profileSlice.organizations)
 	const dispatch = useAppDispatch()
 
-	const { data, isLoading } = useGetConnectionQuery()
+	const { connections, streets, owners, isLoading } = useFindStreetAndProviders()
+	const { data: dataOrgs, isLoading: isLoadingOrgs } = useGetOrganizationsQuery()
 
 	useEffect(() => {
-		if (data && !isLoading) {
-			dispatch(setConnection(data.connections))
+		if (dataOrgs && !isLoadingOrgs && organizations.length === 0) {
+			dispatch(setOrganizations(dataOrgs))
 		}
-	}, [data, isLoading])
+	}, [dataOrgs, isLoadingOrgs])
 
 	return (
 		<section>
-			{isLoading && <h1>Загрузка данных...</h1>}
+			{(isLoading || isLoadingOrgs) && <h1>Загрузка данных...</h1>}
 			{!isLoading &&
-				connection.map(connect => (
-					<article key={connect.id}>
-						<DividerCustom />
-						<ProfileRequest
-							street='Street'
-							currentNameOrganization={String(connect.provider)}
-							status={connect.status}
-						/>
-					</article>
-				))}
+				!isLoadingOrgs &&
+				organizations.length !== 0 &&
+				connections.map(connect => {
+					return (
+						<article key={connect.id}>
+							<DividerCustom />
+							<ProfileRequest
+								street={streets}
+								currentNameOrganization={owners}
+								status={connect.status}
+							/>
+						</article>
+					)
+				})}
 		</section>
 	)
 }

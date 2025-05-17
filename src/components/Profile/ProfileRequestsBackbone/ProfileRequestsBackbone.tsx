@@ -1,48 +1,32 @@
-import { useEffect } from 'react'
-import { useAppDispatch, useAppSelector } from '../../../hooks/react-redux'
 import { TypeOrganization } from '../../../interfaces/usersInterfaces'
-import { useGetConnectionQuery } from '../../../api/profileApi'
-import { setConnection } from '../../../store/slice/profileSlice'
 import DividerCustom from '../../ui/DividerCustom'
 import ProfileRequest from '../ProfileRequest/ProfileRequest'
+import { useFindStreetAndProviders } from '../../../hooks/useFindStreetAndProviders'
 
 interface Props {
 	type: TypeOrganization
 }
 
 const ProfileRequestsBackbone = ({ type }: Props) => {
-	const dispatch = useAppDispatch()
+	const { connections, streets, isLoading } = useFindStreetAndProviders()
 
-	const connections = useAppSelector(state => state.profileSlice.connections)
-
-	const filteringConnection = connections.filter(connect => {
-		if (type === 'магистральный провайдер') return connect
-	})
-
-	const { data, isLoading } = useGetConnectionQuery()
-
-	useEffect(() => {
-		if (!isLoading && data) {
-			dispatch(setConnection(data.connections))
-		}
-	}, [data, isLoading])
+	if (isLoading) {
+		return <h1>Загрузка данных...</h1>
+	}
 
 	return (
 		<section>
-			{isLoading && <h1>Загрузка данных...</h1>}
-			{!isLoading &&
-				filteringConnection.map(connection => (
-					<article key={connection.id}>
-						<DividerCustom />
-						<ProfileRequest
-							/* location={pillar.coordinates} */
-							street={String(connection.id)}
-							status={connection.status}
-							type={type!}
-							currentNameOrganization={''}
-						/>
-					</article>
-				))}
+			{connections.map(connection => (
+				<article key={connection.id}>
+					<DividerCustom />
+					<ProfileRequest
+						street={streets!}
+						status={connection.status}
+						type={type!}
+						currentNameOrganization={''}
+					/>
+				</article>
+			))}
 		</section>
 	)
 }
