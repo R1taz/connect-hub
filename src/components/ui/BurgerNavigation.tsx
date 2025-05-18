@@ -5,8 +5,6 @@ import { useAppSelector } from '../../hooks/react-redux'
 import { NavLink } from 'react-router-dom'
 
 export default function BurgerMenu() {
-	// Достаём статус подтверждения из хранилища Redux Toolkit
-	const acceptStatus = useAppSelector(state => state.userSlice.user?.user_info?.accept_status)
 	// Достаём статус авторизованности из хранилища Redux Toolkit
 	const isAuth = useAppSelector(state => state.authSlice.isAuth)
 	// Делаем локальное состояние открытости закрытости "бургер меню"
@@ -19,7 +17,7 @@ export default function BurgerMenu() {
 
 	// Элементы, которые будут в "бургер меню" и их маршруты
 	const menuItems = [
-		{ label: 'Главная', to: acceptStatus ? '/map' : '/' },
+		{ label: 'Главная', to: isAuth ? '/map' : '/' },
 		{ label: 'О нас', to: '/aboutAs' },
 		{ label: 'Контакты', to: '/contacts' },
 		{ label: !isAuth ? 'Войти' : 'Профиль', to: !isAuth ? '/login' : '/profile' },

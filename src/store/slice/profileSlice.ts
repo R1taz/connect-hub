@@ -3,16 +3,20 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import { IConnection } from '../../interfaces/profileInterfaces'
 import { IOrganization } from '../../interfaces/authInterfaces'
 
+// Типизация того, что хранится в состоянии
 interface State {
 	connections: IConnection[]
 	organizations: IOrganization[]
 }
 
+// Объект состояния
 const initialState: State = {
 	connections: [],
 	organizations: [],
 }
 
+// Шаблон из Redux Toolkit Query для создания хранилища с состоянием а также функциями
+// изменения этого состояния
 export const profileSlice = createSlice({
 	name: 'profileSlice',
 	initialState,

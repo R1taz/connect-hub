@@ -158,7 +158,7 @@ const AuthorizationForm = () => {
 								color: theme.palette.primary.main,
 							}}
 						>
-							Запросить аккаунт
+							Зарегистрироваться
 						</NavLink>
 					</Box>
 				</Form>

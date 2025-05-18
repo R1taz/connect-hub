@@ -1,7 +1,6 @@
 import { Divider } from '@mui/material'
 import Title from '../../components/Main/Title/Title'
 import MapComponent from '../../components/MapComponent/MapComponent'
-import Supports from '../../components/MapComponent/Supports/Supports'
 import SubInformation from '../../components/MapComponent/SubInformation/SubInformation'
 import Footer from '../../components/Main/Footer/Footer'
 import DividerCustom from '../../components/ui/DividerCustom'
@@ -12,14 +11,15 @@ import {
 	useGetPillarsQuery,
 } from '../../api/mapApi'
 import { useEffect } from 'react'
-import { setConnectionLinks, setPillarLinks, setPillars } from '../../store/slice/mapSlice'
+import { setConnectionLinks, setPillarLinks } from '../../store/slice/mapSlice'
+import PillarsList from '../../components/MapComponent/PillarsList/PillarsList'
+import { IPillar } from '../../interfaces/mapInterfaces'
 
 const MapPage = () => {
 	// Достаём тип организации, если он есть из хранилища Redux Toolkit
 	const type = useAppSelector(state => state.userSlice.user?.user_info?.type)
 
-	// Достаём столбы, линии, подключённые линии, из хранилища Redux Toolkit
-	const pillars = useAppSelector(state => state.mapSlice.pillars)
+	// Достаём линии, подключённые линии, из хранилища Redux Toolkit
 	const pillarLinks = useAppSelector(state => state.mapSlice.pillarLinks)
 	const connectionLinks = useAppSelector(state => state.mapSlice.connectionLinks)
 
@@ -28,7 +28,7 @@ const MapPage = () => {
 
 	// Вызываем функцию из библиотеки Redux Toolkit Query, которая делает запрос за получением столбов.
 	// В качестве ответа мы получаем флаг загрузки данных и данные
-	const { data: dataPillars, isLoading: isLoadingPillars } = useGetPillarsQuery()
+	const { data: dataPillars, refetch: refetchPillars } = useGetPillarsQuery({})
 
 	// Вызываем функцию из библиотеки Redux Toolkit Query, которая делает запрос за получением столбов.
 	// В качестве ответа мы получаем флаг загрузки данных и данные
@@ -41,13 +41,6 @@ const MapPage = () => {
 		isLoading: isLoadingConnectionLinks,
 		refetch,
 	} = useGetConnectionLinksQuery()
-
-	useEffect(() => {
-		// Если загрузка закончена и данные столбов есть, устанавливаем их в хранилище Redux Toolkit
-		if (!isLoadingPillars && dataPillars) {
-			dispatch(setPillars(dataPillars))
-		}
-	}, [dataPillars, isLoadingPillars])
 
 	useEffect(() => {
 		// Если загрузка закончена и данные линий есть, устанавливаем их в хранилище Redux Toolkit
@@ -75,34 +68,20 @@ const MapPage = () => {
 			{/* Если идёт загрузка линий или загрузка подключённых линий то отбражаем заголовок */}
 			{(isLoadingPillarLinks || isLoadingConnectionLinks) && <h1>Данные загружаются...</h1>}
 			{/* Иначе отрисовываем нашу карту */}
-			{!isLoadingPillarLinks && !isLoadingConnectionLinks && (
+			{!isLoadingPillarLinks && !isLoadingConnectionLinks && dataPillars && (
 				<MapComponent
-					pillars={pillars}
+					pillars={dataPillars as IPillar[]}
 					pillarLinks={pillarLinks}
 					connectionLinks={connectionLinks}
 					type={type!}
 					refetchConnectionLinks={refetch}
+					refetchPillars={refetchPillars}
 				/>
 			)}
 
 			<DividerCustom />
 
-			<section>
-				{/* Если загрузка столбов есть, то отрисовываем заголовок */}
-				{isLoadingPillars && <h1>Данные загружаются...</h1>}
-				{/* Иначе идём по массиву и отрисовываем наши столбы */}
-				{!isLoadingPillars &&
-					pillars.map(pillar => (
-						<article key={pillar.id}>
-							<Supports
-								name={`${pillar.street}, ${pillar.building}${pillar.index ? pillar.index : ''}`}
-								location={`${pillar.longitude} ${pillar.latitude}`}
-								max_connections={pillar.max_connections}
-							/>
-							<DividerCustom />
-						</article>
-					))}
-			</section>
+			<PillarsList />
 
 			<Footer />
 		</>

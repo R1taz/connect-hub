@@ -3,6 +3,7 @@ import { IConnection, ResponseSendConnection } from '../interfaces/profileInterf
 
 // типизация того, что принимает наша функция
 interface Params {
+	idOrg: number
 	selectedLinks: number[]
 	connectionLinks: IConnectionLink[]
 	setSelectedLinks: (links: number[]) => void
@@ -19,6 +20,7 @@ interface Params {
 // функцию добавления нового подключения, функцию установки выбранных линий
 // функцию перезапроса за подключёнными линиями
 export const handleSubmitRequest = async ({
+	idOrg,
 	selectedLinks,
 	sendConnectRequest,
 	addConnection,
@@ -32,7 +34,10 @@ export const handleSubmitRequest = async ({
 
 		// ищем выбранные линии в подключённых линиях
 		const findedLinks = connectionLinks.some(connectLink => {
-			return selectedLinks.some(selectedLink => selectedLink === connectLink.pole_link)
+			return selectedLinks.some(
+				selectedLink =>
+					selectedLink === connectLink.pole_link && connectLink.connection.provider === idOrg
+			)
 		})
 
 		// если их нету

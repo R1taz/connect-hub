@@ -1,10 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { UserData } from '../../interfaces/usersInterfaces'
 
+// Типизация того, что хранится в состоянии
 interface State {
 	user: UserData | null
 }
 
+// Объект состояния
 const initialState: State = {
 	user: {
 		id: null,
@@ -15,6 +17,8 @@ const initialState: State = {
 	},
 }
 
+// Шаблон из Redux Toolkit Query для создания хранилища с состоянием а также функциями
+// изменения этого состояния
 const userSlice = createSlice({
 	name: 'userSlice',
 	initialState,

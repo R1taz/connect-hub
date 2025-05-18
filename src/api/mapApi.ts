@@ -1,5 +1,11 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
-import { IConnectionLink, IPillar, IPillarLink, IAddPillar } from '../interfaces/mapInterfaces'
+import {
+	IConnectionLink,
+	IPillar,
+	IPillarLink,
+	IAddPillar,
+	ResponseGetPillars,
+} from '../interfaces/mapInterfaces'
 import { axiosBaseQuery } from './axiosBaseQuery'
 
 // это базовый шаблон конструктора Redux Toolkit Query
@@ -9,11 +15,14 @@ export const mapApi = createApi({
 	baseQuery: axiosBaseQuery(),
 	endpoints: builder => ({
 		/* Это запрос на получение всех опор */
-		getPillars: builder.query<IPillar[], void>({
-			query: () => ({
-				url: '/poles',
-				method: 'GET',
-			}),
+		getPillars: builder.query<ResponseGetPillars, { page?: number; pageSize?: number }>({
+			query: ({ pageSize, page }) => {
+				const queryPath = `${pageSize ? 'size=' + pageSize : ''}&${page ? 'page=' + page : ''} `
+				return {
+					url: `/poles/?${queryPath}`,
+					method: 'GET',
+				}
+			},
 		}),
 		/* Это запрос на получение линий */
 		getPillarLinks: builder.query<IPillarLink[], void>({

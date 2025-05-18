@@ -3,7 +3,7 @@ import { BASE_COORDINATES } from '../../constants/constants'
 
 import config from '../../config/config.json'
 import { IConnectionLink, IPillar, IPillarLink } from '../../interfaces/mapInterfaces'
-import { useAppSelector } from '../../hooks/react-redux'
+import { useAppDispatch, useAppSelector } from '../../hooks/react-redux'
 import { createGeometryPolyline } from '../../helpers/createGeometryPolyline'
 import { TypeOrganization } from '../../interfaces/usersInterfaces'
 import { useState } from 'react'
@@ -13,6 +13,7 @@ import { polylineOptions } from '../../helpers/polylineOptions'
 import { Box, Modal, Typography } from '@mui/material'
 import MapForm from './MapForm/MapForm'
 import { useGetOrganizationsQuery } from '../../api/authApi'
+import { setPillars } from '../../store/slice/mapSlice'
 
 // Типизация параметров MapComponent
 interface Props {
@@ -21,6 +22,7 @@ interface Props {
 	connectionLinks: IConnectionLink[]
 	type: TypeOrganization
 	refetchConnectionLinks: () => void
+	refetchPillars: () => void
 }
 
 // Принимает столбы, линии, подключённые линии, тип организации, функцию перезапроса за подключёнными
@@ -31,6 +33,7 @@ const MapComponent = ({
 	connectionLinks,
 	type,
 	refetchConnectionLinks,
+	refetchPillars,
 }: Props) => {
 	// Из Redux Toolkit достаём название нашей организации и id нашей организации
 	const nameOrg = useAppSelector(state => state.userSlice.user?.user_info?.organization.name)
@@ -70,16 +73,6 @@ const MapComponent = ({
 	// которое будет содержать состояние установки координат или выбранных линий
 	const [isSetData, setIsSetData] = useState(false)
 
-	// функция установки координат
-	const handleSetCoords = (e: any) => {
-		// Устанавливаем значение открытости в true
-		setIsOpen(true)
-		// Получаем выбранные координаты
-		const mapCoords = e.get('coords') as [number, number]
-		// Устанавливаем их в локальное состояние координат
-		setCoords(mapCoords)
-	}
-
 	// Если организации загружаются, то показываем заголовок
 	if (isLoading) return <h1>Загрузка данных...</h1>
 
@@ -97,13 +90,16 @@ const MapComponent = ({
 					<Map
 						style={{ width: '100%', height: '100%' }}
 						defaultState={{ center: BASE_COORDINATES, zoom: 12 }}
-						onClick={(e: { get: (arg0: string) => [number, number] }) => {
+						onClick={(e: any) => {
 							// Если по карте кликнул магистральный провайдер или состояние установки данных равно false
 							// то выход из функции
 							if (type === 'магистральный провайдер' || !isSetData) return
 							// иначе получаем координаты вызываем функцию установки координат
 							const mapCoords = e.get('coords') as [number, number]
-							handleSetCoords(mapCoords)
+							// Устанавливаем значение открытости в true
+							setIsOpen(true)
+							// Устанавливаем их в локальное состояние координат
+							setCoords(mapCoords)
 						}}
 					>
 						{/* Идём по массиву и отрисовываем наши столбы */}
@@ -192,6 +188,7 @@ const MapComponent = ({
 							setCoords([0, 0])
 							setIsSetData(false)
 							setIsOpen(false)
+							refetchPillars()
 						}}
 					/>
 				</Box>

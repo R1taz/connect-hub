@@ -6,6 +6,7 @@ import {
 } from '../api/mapApi'
 import { useAppDispatch, useAppSelector } from './react-redux'
 import { setConnectionLinks, setPillarLinks, setPillars } from '../store/slice/mapSlice'
+import { IPillar } from '../interfaces/mapInterfaces'
 
 // Типизация ответа хука useFindRequestPillars
 interface Response {
@@ -40,7 +41,7 @@ const useFindRequestPillars = (): Response => {
 
 	// Вызываем функцию из библиотеки Redux Toolkit Query, которая делает запрос за получением опор.
 	// В качестве ответа мы получаем флаг загрузки данных и данные
-	const { data: dataPillars, isLoading: isLoadingPillars } = useGetPillarsQuery()
+	const { data: dataPillars, isLoading: isLoadingPillars } = useGetPillarsQuery({})
 
 	// Вызываем функцию из библиотеки Redux Toolkit Query, которая делает запрос за получением подключённых
 	// линий. В качестве ответа мы получаем флаг загрузки данных и данные
@@ -54,7 +55,7 @@ const useFindRequestPillars = (): Response => {
 		// Если опоры есть и загрузка прошла
 		if (!isLoadingPillars && dataPillars) {
 			// устанавливаем их в хранилище Redux
-			dispatch(setPillars(dataPillars))
+			dispatch(setPillars(dataPillars as IPillar[]))
 		}
 
 		// Если линии есть и загрузка прошла

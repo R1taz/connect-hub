@@ -43,21 +43,25 @@ export function useFindStreetAndProviders() {
 		}
 	}, [dataConnects, dataConnectionLinks, dataPillarLinks])
 
-	// Ищем нужную нам подключённую линию
-	const findConnectionLink = connectionLinks.find(link => {
-		return connections.some(connect => connect.id === link.connection.id)
-	})
-	// По ней находим обычную линию
-	const pillarLink = pillarLinks.find(pillarLink => pillarLink.id === findConnectionLink?.pole_link)
+	const foundConnectionLink = connectionLinks.find(link =>
+		connections.some(connect => connect.id === link.connection.id)
+	)
 
-	// создаём массив в котором храним названия компаний сетевика и магистральщика
-	const owners = [`${pillarLink?.pole_a.owner.name}`, `${pillarLink?.pole_b.owner.name}`]
+	const foundPillarLink = pillarLinks.find(
+		pillarLink => pillarLink.id === foundConnectionLink?.pole_link
+	)
 
-	// здесь сохраняем адреса столбов
+	const startPillar = foundPillarLink?.pole_a ?? null
+	const endPillar = foundPillarLink?.pole_b ?? null
+
+	// Формируем адреса столбов
 	const streets = [
-		`${pillarLink?.pole_a.street} ${pillarLink?.pole_a.building}${pillarLink?.pole_a.index ?? ''}`,
-		`${pillarLink?.pole_b.street} ${pillarLink?.pole_b.building}${pillarLink?.pole_b.index ?? ''}`,
+		startPillar ? `${startPillar.street} ${startPillar.building}${startPillar.index ?? ''}` : '',
+		endPillar ? `${endPillar.street} ${endPillar.building}${endPillar.index ?? ''}` : '',
 	]
+
+	// Владелец столбов
+	const owners = [startPillar?.owner.name ?? '', endPillar?.owner.name ?? '']
 
 	// возвращаем
 	return {

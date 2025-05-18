@@ -34,6 +34,9 @@ const MapButtons = ({
 	// получаем статус подтверждённости акканута
 	const acceptStatus = useAppSelector(state => state.userSlice.user?.user_info?.accept_status)
 
+	// Достаём из хранилища Redux Toolkit id нашей компании
+	const idOrg = useAppSelector(state => state.userSlice.user?.user_info?.organization.id)
+
 	// Достаём специальную функцию из библиотеки React-Redux для обработки действий
 	const dispatch = useAppDispatch()
 
@@ -113,6 +116,7 @@ const MapButtons = ({
 								onClick={async () => {
 									/* Здесь вызывается функция которая отправляет наш запрос */
 									await handleSubmitRequest({
+										idOrg: idOrg!,
 										selectedLinks,
 										setSelectedLinks,
 										connectionLinks,

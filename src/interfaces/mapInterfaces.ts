@@ -48,3 +48,12 @@ export interface IAddPillar {
 	max_connections: number
 	owner_id: number
 }
+
+export type ResponseGetPillars = PaginatePillars | IPillar[]
+
+export interface PaginatePillars {
+	count: number
+	next: string | null
+	previous: string | null
+	results: IPillar[]
+}

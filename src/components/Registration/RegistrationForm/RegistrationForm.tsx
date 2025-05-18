@@ -66,6 +66,9 @@ const RegistrationForm = () => {
 					// если пароль меньше 8 символов, то тогда выход из функции
 					if (values.password.length < 8) return
 
+					// если в пароле только числа
+					if (!/^\d+$/.test(values.password)) return
+
 					// находим выбранную организацию если она есть
 					const selectedOrg = data?.find(item => item.id === values.organizationId)
 					// проверяем, что если тип и выбранная организация не совпадают, то выходим из функции
