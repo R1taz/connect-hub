@@ -17,10 +17,14 @@ const RecoverForm = () => {
 			// Поля, которые будут в форме
 			initialValues={{
 				email: '',
+				checkbox: false,
 			}}
 			// Функция, которая будет выполняться при отправке формы
 			onSubmit={async (values, { setSubmitting }) => {
 				// в параметрах получаем значения и функцию установки флага выполнения отправки формы
+
+				// Если чекбокс не выбран, то выход из функции
+				if (!values.checkbox) return
 
 				// делаем запрос на восстановление пароля
 				await axios.post(`${BASE_URL}/recover`, values)
@@ -57,7 +61,7 @@ const RecoverForm = () => {
 					<ErrorMessage name='name' component='div' />
 
 					{/* Наш кастомный чекбокс */}
-					<СonsentСheckbox />
+					<СonsentСheckbox onBlur={handleBlur} onChange={handleChange} value={values.checkbox} />
 
 					{/* Кнопка отправки запроса */}
 					<CustomButton
