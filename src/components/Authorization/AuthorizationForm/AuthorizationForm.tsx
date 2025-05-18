@@ -133,13 +133,23 @@ const AuthorizationForm = () => {
 					</NavLink>
 
 					{/* Кнопка отправки функции */}
-					<CustomButton sx={{ mt: 8, mb: 1 }} type='submit' disabled={isSubmitting}>
+					<CustomButton
+						sx={{ width: { xs: '100%', md: '50%' }, mt: 8, mb: 1 }}
+						type='submit'
+						disabled={isSubmitting}
+					>
 						Войти
 					</CustomButton>
 
 					{/* Блок с переходом на форму регистрации,
 					NavLink это аналог тега a. Отличие его в том, что он делает переход без перезагрузки страницы */}
-					<Box sx={{ display: 'flex', alignItems: 'center' }}>
+					<Box
+						sx={{
+							display: 'flex',
+							justifyContent: { xs: 'center', md: 'start' },
+							alignItems: 'center',
+						}}
+					>
 						<Typography sx={{ color: theme.palette.secondary.main }}>Нет аккаунта?</Typography>
 						<NavLink
 							to='/registration'

@@ -14,12 +14,16 @@ const AuthorizationPage = () => {
 	return (
 		<Grid2 container sx={{ mb: 10 }}>
 			<Grid2 size={12} sx={{ display: 'flex', alignItems: 'end', mt: '120px' }}>
-				<Typography variant='h3'>ВОЙТИ</Typography>
-				<ArrowOutwardRoundedIcon sx={{ marginLeft: 1, fontSize: '65px' }} />
+				<Typography variant='h3' sx={{ fontSize: { xs: '26px', md: '46px' } }}>
+					ВОЙТИ
+				</Typography>
+				<ArrowOutwardRoundedIcon
+					sx={{ marginLeft: 1, fontSize: { xs: '40px', md: '65px', lg: '65px' } }}
+				/>
 			</Grid2>
 
-			<Grid2 size={3}></Grid2>
-			<Grid2 size={5} sx={{ mt: 5 }}>
+			<Grid2 size={{ md: 3, xs: 0 }}></Grid2>
+			<Grid2 size={{ md: 5, xs: 12 }} sx={{ mt: 5 }}>
 				<Typography sx={{ mb: 2 }}>Благодарим за выбор нас!</Typography>
 				<Typography>
 					Это позволит вам сохранить контроль над вашей связью и всегда быть в курсе последних

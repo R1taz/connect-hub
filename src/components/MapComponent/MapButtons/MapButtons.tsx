@@ -51,13 +51,21 @@ const MapButtons = ({
 			{/* если ты электросетевая компания и аккаунт подтверждён, ты видишь эти кнопки */}
 			{type === 'электросетевая компания' && acceptStatus === 'Принято' && (
 				<Grid2 container sx={{ marginBottom: 15 }}>
-					<Grid2 size={8}>
-						<Typography variant='h4'>
+					<Grid2 size={{ lg: 8, xs: 12 }}>
+						<Typography variant='h4' sx={{ fontSize: { xs: '20px', md: '46px' } }}>
 							{isSetData ? 'Кликнете на карту, чтобы выбрать место опоры' : ''}
 						</Typography>
 					</Grid2>
-					<Grid2 size={4}>
-						<CustomButton onClick={setIsSetData} sx={{ width: '100%', padding: '25px 20px' }}>
+					<Grid2 size={{ lg: 4, xs: 12 }}>
+						<CustomButton
+							onClick={setIsSetData}
+							sx={{
+								width: '100%',
+								padding: '25px 20px',
+								fontWeight: 'medium',
+								mt: { lg: 0, xs: 2 },
+							}}
+						>
 							{isSetData ? 'ОТМЕНИТЬ ДОБАВЛЕНИЕ' : 'ДОБАВИТЬ ОПОРУ'}
 						</CustomButton>
 					</Grid2>
@@ -67,13 +75,13 @@ const MapButtons = ({
 			{/* если ты магистральный провайдер и аккаунт подтверждён, ты видишь эти кнопки */}
 			{type === 'магистральный провайдер' && acceptStatus === 'Принято' && (
 				<Grid2 container sx={{ marginBottom: 15 }}>
-					<Grid2 size={7}>
-						<Typography variant='h4'>
+					<Grid2 size={{ lg: 7, xs: 12 }}>
+						<Typography variant='h4' sx={{ fontSize: { xs: '26px', md: '36px' } }}>
 							{isSetData ? 'Кликайте на линии, чтобы выбрать их' : ''}
 						</Typography>
 					</Grid2>
-					<Grid2 size={1}></Grid2>
-					<Grid2 size={4}>
+					<Grid2 size={{ lg: 1, xs: 0 }}></Grid2>
+					<Grid2 size={{ lg: 4, xs: 12 }} sx={{ mt: { lg: 0, xs: 2 } }}>
 						<CustomButton
 							sx={{
 								width: '100%',
@@ -82,6 +90,7 @@ const MapButtons = ({
 								color: isSetData ? 'black' : 'white',
 								border: isSetData ? 'black solid 2px' : 'none',
 								mb: 2,
+								fontWeight: 'medium',
 							}}
 							onClick={() => {
 								{
@@ -94,7 +103,7 @@ const MapButtons = ({
 							}}
 						>
 							{/* Если состояние изменения данных = true, то отображается первая фраза, иначе вторая */}
-							{isSetData ? 'ОТМЕНИТЬ ПОДКЛЮЧЕНИЕ' : 'ВЫБРАТЬ ОПОРЫ НА ПОДКЛЮЧЕНИЕ'}
+							{isSetData ? 'ОТМЕНИТЬ ПОДКЛЮЧЕНИЕ' : 'ВЫБРАТЬ ЛИНИИ НА ПОДКЛЮЧЕНИЕ'}
 						</CustomButton>
 
 						{/* Если состояние изменения данных = true */}

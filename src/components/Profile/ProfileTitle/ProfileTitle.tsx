@@ -26,22 +26,52 @@ const ProfileTitle = ({ type, acceptStatus, isSuperUser }: Props) => {
 	// Typography это компонент, который в зависимости от значения variants равен определённому тегу
 	return (
 		<>
-			<Box sx={{ mt: 6, display: 'flex' }}>
-				<Typography variant='h4' sx={{ my: 5 }}>
+			<Box
+				sx={{
+					mt: 6,
+					display: 'flex',
+					alignItems: 'center',
+					flexDirection: { md: 'row', xs: 'column' },
+				}}
+			>
+				<Typography
+					variant='h4'
+					sx={{
+						textAlign: { md: 'start', xs: 'center' },
+						my: { lg: 5, xs: 2 },
+						fontSize: { xs: '24px', md: '36px' },
+					}}
+				>
 					Статус подтверждения аккаунта:{' '}
 				</Typography>
-				<Typography variant='h4' sx={{ ml: 2, my: 5, display: 'inline-block', color: colorStatus }}>
+				<Typography
+					variant='h4'
+					sx={{
+						textAlign: { lg: 'start', xs: 'center' },
+						fontSize: { xs: '24px', md: '36px' },
+						ml: 2,
+						my: { lg: 5, xs: 1 },
+						display: 'inline-block',
+						color: colorStatus,
+					}}
+				>
 					{status}
 				</Typography>
 			</Box>
 
 			{/* Если ты подтверждён или супер юзер, то ты можешь видеть запросы на подключение */}
 			{(acceptStatus || isSuperUser) && (
-				<Box sx={{ mt: 6, display: 'flex', justifyContent: 'space-between' }}>
-					<Typography variant='h4'>ЗАПРОСЫ НА ПОДСОЕДИНЕНИЕ</Typography>
+				<Box sx={{ mt: 6, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+					<Typography variant='h4' sx={{ fontSize: { xs: '24px', md: '36px' } }}>
+						ЗАПРОСЫ НА ПОДСОЕДИНЕНИЕ
+					</Typography>
 
 					{type === 'магистральный провайдер' && (
-						<Typography sx={{ color: theme.palette.secondary.main }}>статус</Typography>
+						<Typography
+							sx={{ display: { md: 'block', xs: 'none' }, color: theme.palette.secondary.main }}
+						>
+							статус
+						</Typography>
 					)}
 				</Box>
 			)}

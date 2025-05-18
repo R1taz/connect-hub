@@ -14,4 +14,6 @@ export const placemarkOptions = ({ type, pillarOwner, nameOrg }: Params) => ({
 		type === 'магистральный провайдер' || pillarOwner === nameOrg ? activePoint : notActivePoint,
 	iconImageSize: [30, 30],
 	iconImageOffset: [-15, -30],
+	openBalloonOnClick: true,
+	balloonPanelMaxMapArea: 0,
 })

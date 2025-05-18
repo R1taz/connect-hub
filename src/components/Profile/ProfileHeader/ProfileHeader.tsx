@@ -52,20 +52,21 @@ const ProfileHeader = ({ isSuperUser }: Props) => {
 		<Grid2
 			container
 			sx={{
+				display: 'flex',
 				alignItems: 'center',
 				padding: '40px 20px',
 				backgroundColor: theme.palette.primary.main,
 			}}
 		>
-			<Grid2 size={0}></Grid2>
-			<Grid2 size={10} sx={{ color: 'white' }}>
-				<Typography variant='h4'>{name}</Typography>
+			<Grid2 size={{ sm: 10, lg: 11 }} sx={{ color: 'white' }}>
+				<Typography variant='h4' sx={{ mr: 2, fontSize: { xs: '24px', md: '42px' } }}>
+					{name}
+				</Typography>
 			</Grid2>
-			<Grid2 size={1}></Grid2>
-			<Grid2 size={1}>
+			<Grid2 size={{ sm: 1, xs: 2 }} sx={{ mt: { xs: 2, sm: 0 } }}>
 				<Button sx={{ padding: '0px', color: 'white' }} onClick={handleLogout}>
 					<Typography component='span'>Выйти</Typography>
-					<TrendingFlatRoundedIcon sx={{ marginLeft: '10px' }} />
+					<TrendingFlatRoundedIcon sx={{ mx: 1 }} />
 				</Button>
 			</Grid2>
 		</Grid2>

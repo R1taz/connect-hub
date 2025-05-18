@@ -106,11 +106,24 @@ const MapComponent = ({
 							handleSetCoords(mapCoords)
 						}}
 					>
-						{/* Отрисовываем наши столбы */}
+						{/* Идём по массиву и отрисовываем наши столбы */}
 						{pillars.map((pillar, index) => (
 							<Placemark
 								key={index}
 								geometry={[pillar.longitude, pillar.latitude]}
+								modules={['geoObject.addon.balloon']}
+								properties={{
+									/* То, что будет отображаться в поп-апе */
+									balloonContent: `
+          					<div class="custom-balloon">
+            					<div class="custom-balloon__header">Столб #${pillar.id}</div>
+            					<div class="custom-balloon__body">
+              				<p><strong>Владелец:</strong> ${pillar.owner.name}</p>
+              				<p><strong>Координаты:</strong> ${pillar.latitude}, ${pillar.longitude}</p>
+           					 </div>
+          					</div>
+        					`,
+								}}
 								options={placemarkOptions({
 									pillarOwner: pillar.owner.name,
 									type,
@@ -119,7 +132,7 @@ const MapComponent = ({
 							/>
 						))}
 
-						{/* Отрисовываем наши линии */}
+						{/* Идём по массиву и отрисовываем наши линии */}
 						{pillarLinks.map((pillarLink, index) => (
 							<Polyline
 								key={index}

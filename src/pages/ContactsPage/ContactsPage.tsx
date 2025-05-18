@@ -1,6 +1,7 @@
 import { Box, Grid2, Typography, useTheme } from '@mui/material'
 import DividerCustom from '../../components/ui/DividerCustom'
 import planetSVG from '../../assets/planet.svg'
+import styles from './styles.module.css'
 
 const ContactsPage = () => {
 	// Достаём объект темы из MaterialUI
@@ -17,32 +18,31 @@ const ContactsPage = () => {
 	return (
 		<Grid2 container>
 			<Grid2 size={12} sx={{ display: 'flex', alignItems: 'end', mt: '120px' }}>
-				<Typography variant='h3'>КОНТАКТЫ</Typography>
+				<Typography variant='h3' sx={{ fontSize: { xs: '26px', md: '46px' } }}>
+					КОНТАКТЫ
+				</Typography>
 			</Grid2>
 
-			<Grid2 size={3}></Grid2>
-			<Grid2 size={5} sx={{ mt: 5 }}>
-				<Typography sx={{ mb: 2, color: theme.palette.secondary.main }}>Адрес</Typography>
-				<Typography sx={{ mb: 6 }}>Город, Улица, Дом</Typography>
+			<Grid2 size={{ md: 3, xs: 0 }}></Grid2>
+			<Grid2 size={{ md: 5, xs: 12 }} sx={{ mt: 5 }}>
+				<Typography sx={{ fontSize: '18px', mb: 2, color: theme.palette.secondary.main }}>
+					Адрес
+				</Typography>
+				<Typography sx={{ mb: 6, fontSize: '18px' }}>Город, Улица, Дом</Typography>
 
-				<Typography sx={{ mb: 2, color: theme.palette.secondary.main }}>
+				<Typography sx={{ mb: 2, fontSize: '18px', color: theme.palette.secondary.main }}>
 					Телефон обратной связи
 				</Typography>
-				<Typography sx={{ mb: 6 }}>+7 (XXX) XXX-XX-XX</Typography>
+				<Typography sx={{ mb: 6, fontSize: '18px' }}>+7 (XXX) XXX-XX-XX</Typography>
 
-				<Typography sx={{ mb: 2, color: theme.palette.secondary.main }}>Эл. почта</Typography>
-				<Typography sx={{ mb: 2 }}>@info.comX-XX-XX</Typography>
+				<Typography sx={{ mb: 2, fontSize: '18px', color: theme.palette.secondary.main }}>
+					Эл. почта
+				</Typography>
+				<Typography sx={{ mb: 2, fontSize: '18px' }}>@info.comX-XX-XX</Typography>
 			</Grid2>
 
 			<Grid2 size={4}>
-				<img
-					src={planetSVG}
-					style={{
-						position: 'absolute',
-						right: '-80px',
-						width: '35%',
-					}}
-				/>
+				<img src={planetSVG} className={styles.planetImg} />
 			</Grid2>
 
 			<Grid2 size={12} sx={{ mt: 25 }}>

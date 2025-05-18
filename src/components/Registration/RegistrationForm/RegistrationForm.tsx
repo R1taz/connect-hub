@@ -46,6 +46,8 @@ const RegistrationForm = () => {
 		<Formik
 			// Поля, которые будут в форме
 			initialValues={{
+				name: '',
+				checkbox: false,
 				username: '',
 				surname: '',
 				password: '',
@@ -59,10 +61,19 @@ const RegistrationForm = () => {
 				// в параметрах получаем значения и функцию установки флага выполнения отправки формы
 				try {
 					// если не выбрана организация или тип организации, тогда регистрация отменяется
-					if (!values.organizationId || !values.type) return
+					if (!values.organizationId || !values.type || !values.checkbox) return
+
+					// если пароль меньше 8 символов, то тогда выход из функции
+					if (values.password.length < 8) return
+
+					// находим выбранную организацию если она есть
+					const selectedOrg = data?.find(item => item.id === values.organizationId)
+					// проверяем, что если тип и выбранная организация не совпадают, то выходим из функции
+					if (selectedOrg?.type !== values.type) return
 
 					// здесь происходит запрос на регистрацию
 					await registration({
+						name: values.name,
 						username: values.username,
 						surname: values.surname,
 						password: values.password,
@@ -127,6 +138,21 @@ const RegistrationForm = () => {
 							placeholder='ПАРОЛЬ ДЛЯ ВХОДА В АККАУНТ'
 						/>
 						<ErrorMessage name='password' component='div' />
+						<TextField
+							variant='standard'
+							type='text'
+							name='name'
+							onChange={handleChange}
+							onBlur={handleBlur}
+							value={values.name}
+							sx={{
+								my: 4,
+								display: 'block',
+								'& .MuiInputBase-root': { width: '100%' },
+							}}
+							placeholder='ИМЯ ПОЛЬЗОВАТЕЛЯ'
+						/>
+						<ErrorMessage name='name' component='div' />
 						<TextField
 							variant='standard'
 							type='text'
@@ -243,6 +269,7 @@ const RegistrationForm = () => {
 							onClose={() => setAnchorElNameOrg(null)}
 							PaperProps={{ sx: { width: anchorElNameOrg?.offsetWidth || 'auto' } }}
 						>
+							{/* Идём по массиву и отрисовываем наши элементы меню */}
 							{data &&
 								data.map(item => (
 									<MenuItem
@@ -288,15 +315,25 @@ const RegistrationForm = () => {
 						<ErrorMessage name='email' component='div' />
 
 						{/* Компонент с чекбоксом */}
-						<СonsentСheckbox />
+						<СonsentСheckbox onChange={handleChange} onBlur={handleBlur} value={values.checkbox} />
 
 						{/* Кнопка отправки функции */}
-						<CustomButton sx={{ mt: 5, mb: 1 }} type='submit' disabled={isSubmitting}>
+						<CustomButton
+							sx={{ width: { xs: '100%', md: '50%' }, mt: 5, mb: 1 }}
+							type='submit'
+							disabled={isSubmitting}
+						>
 							Отправить
 						</CustomButton>
 
 						{/* Блок с переходом на форму логина */}
-						<Box sx={{ display: 'flex', alignItems: 'center' }}>
+						<Box
+							sx={{
+								display: 'flex',
+								justifyContent: { xs: 'center', md: 'start' },
+								alignItems: 'center',
+							}}
+						>
 							<Typography
 								sx={{
 									display: 'inline-block',

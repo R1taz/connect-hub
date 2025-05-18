@@ -18,7 +18,9 @@ const ProfileRequestsBackbone = ({ type }: Props) => {
 		return <h1>Загрузка данных...</h1>
 	}
 
-	// иначе отрисовываем запросы
+	{
+		/* Идём по массиву и отрисовываем наши подключения */
+	}
 	return (
 		<section>
 			{connections.map(connection => (

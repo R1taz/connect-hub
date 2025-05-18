@@ -40,79 +40,81 @@ const ProfileRequests = ({
 	// Stack это компонент, который по умолчанию аналогичен div с display:flex и flexDirection: column
 	return (
 		<Stack
+			direction={{ md: 'row', xs: 'column' }}
 			sx={{
+				justifyContent: 'space-between',
+				alignItems: { xs: 'start', lg: 'center' },
 				padding: '5px',
 			}}
 		>
-			<Box
-				sx={{
-					display: 'flex',
-					alignItems: 'center',
-					justifyContent: 'space-between',
-				}}
-			>
-				<Box>
-					{/* Если у нас street это не массив, то мы выводим название улицы */}
-					{!Array.isArray(street) ? (
-						<Typography sx={{ fontSize: '20px' }}>{street}</Typography>
+			{/* Если у нас street это не массив, то мы выводим название улицы */}
+			{!Array.isArray(street) ? (
+				<Typography sx={{ fontSize: '20px' }}>{street}</Typography>
+			) : (
+				/* Иначе здесь мы идём по массиву и выводим улицы */
+				<Stack direction='column' spacing={2}>
+					{street.map((s, i) => (
+						<Typography key={i} sx={{ fontSize: '20px' }}>
+							{s}
+						</Typography>
+					))}
+				</Stack>
+			)}
+
+			{/* Если мы электросетевая или супер юзер */}
+			{(type === 'электросетевая компания' || isSuperUser) && (
+				<>
+					{/* Если у нас street это не массив, то мы выводим название организации */}
+					{!Array.isArray(currentNameOrganization) ? (
+						<Typography sx={{ my: { lg: 0, xs: 2 } }}>{currentNameOrganization}</Typography>
 					) : (
-						/* Иначе здесь мы идём по массиву и выводим улицы */
-						<Stack direction='column' spacing={2}>
-							{street.map((s, i) => (
+						/* Иначе здесь мы идём по массиву и выводим названия организаций */
+						<Stack direction='column' spacing={2} sx={{ mt: 3 }}>
+							{currentNameOrganization.map((name, i) => (
 								<Typography key={i} sx={{ fontSize: '20px' }}>
-									{s}
+									{name}
 								</Typography>
 							))}
 						</Stack>
 					)}
-				</Box>
+				</>
+			)}
 
-				{/* Если мы электросетевая или супер юзер */}
-				{(type === 'электросетевая компания' || isSuperUser) && (
-					<Box>
-						{/* Если у нас street это не массив, то мы выводим название организации */}
-						{!Array.isArray(currentNameOrganization) ? (
-							<Typography>{currentNameOrganization}</Typography>
-						) : (
-							/* Иначе здесь мы идём по массиву и выводим названия организаций */
-							<Stack direction='column' spacing={2}>
-								{currentNameOrganization.map((name, i) => (
-									<Typography key={i} sx={{ fontSize: '20px' }}>
-										{name}
-									</Typography>
-								))}
-							</Stack>
-						)}
-					</Box>
+			<Box sx={{ width: { xs: '100%', sm: 'auto' } }}>
+				{/* Если акк подтверждён и мы магистральный провайдер, то выводим статус запроса */}
+				{status && type === 'магистральный провайдер' && (
+					<Typography
+						sx={{
+							color: colorStatus,
+							fontSize: { lg: '18px', xs: '20px' },
+							fontWeight: 'bold',
+							mt: { lg: 0, xs: 2 },
+						}}
+					>
+						{formatStatus(status)}
+					</Typography>
 				)}
 
-				<Box>
-					{/* Если акк подтверждён и мы магистральный провайдер, то выводим статус запроса */}
-					{status && type === 'магистральный провайдер' && (
-						<Typography sx={{ color: colorStatus, fontWeight: 'bold' }}>
+				{/* Если электросетевая компания, то выводим кнопки обработки запроса */}
+				{type === 'электросетевая компания' && (
+					<ProfileRequestButtons
+						id={pillarId!}
+						answer={answer!}
+						refetch={refetchConnectionLinks!}
+					/>
+				)}
+
+				{/* Если акк подтверждён и мы супер юзер, то выводим статус запроса */}
+				{status && isSuperUser && (
+					<Stack sx={{ mt: 3 }}>
+						<Typography sx={{ fontWeight: 'bold', fontSize: { xs: '20px', lg: '18px' } }}>
+							Запрос на подключение
+						</Typography>
+						<Typography sx={{ fontSize: { xs: '20px', lg: '18px' } }}>
 							{formatStatus(status)}
 						</Typography>
-					)}
-
-					{/* Если электросетевая компания, то выводим кнопки обработки запроса */}
-					{type === 'электросетевая компания' && (
-						<ProfileRequestButtons
-							id={pillarId!}
-							answer={answer!}
-							refetch={refetchConnectionLinks!}
-						/>
-					)}
-
-					{/* Если акк подтверждён и мы супер юзер, то выводим статус запроса */}
-					{status && isSuperUser && (
-						<Stack sx={{ alignItems: 'end' }}>
-							<Typography sx={{ fontWeight: 'bold', fontSize: '18px' }}>
-								Запрос на подключение
-							</Typography>
-							<Typography sx={{ fontSize: '17px' }}>{formatStatus(status)}</Typography>
-						</Stack>
-					)}
-				</Box>
+					</Stack>
+				)}
 			</Box>
 		</Stack>
 	)

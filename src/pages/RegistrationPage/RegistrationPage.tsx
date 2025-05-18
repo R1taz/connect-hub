@@ -14,12 +14,16 @@ const RegistrationPage = () => {
 	return (
 		<Grid2 container>
 			<Grid2 size={12} sx={{ display: 'flex', alignItems: 'end', mt: '120px' }}>
-				<Typography variant='h3'>ЗАРЕГИСТРИРОВАТЬСЯ</Typography>
-				<ArrowOutwardRoundedIcon sx={{ marginLeft: 1, fontSize: '65px' }} />
+				<Typography variant='h3' sx={{ fontSize: { xs: '22px', md: '46px' } }}>
+					ЗАРЕГИСТРИРОВАТЬСЯ
+				</Typography>
+				<ArrowOutwardRoundedIcon
+					sx={{ marginLeft: 1, fontSize: { xs: '40px', md: '65px', lg: '65px' } }}
+				/>
 			</Grid2>
 
-			<Grid2 size={3}></Grid2>
-			<Grid2 size={5} sx={{ mt: 5 }}>
+			<Grid2 size={{ md: 3, xs: 0 }}></Grid2>
+			<Grid2 size={{ md: 5, xs: 12 }} sx={{ mt: 5 }}>
 				<Typography sx={{ mb: 2 }}>Регистрация занимает несколько минут.</Typography>
 				<Typography>
 					Укажите свои контактные данные, мы свяжемся с вами, чтобы обсудить все детали и ответить

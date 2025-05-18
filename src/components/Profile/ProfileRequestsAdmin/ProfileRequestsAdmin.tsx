@@ -32,7 +32,7 @@ const ProfileRequestsAdmin = () => {
 			{/* Если загрузки, то показываем заголовок */}
 			{(isLoading || isLoadingOrgs) && <h1>Загрузка данных...</h1>}
 
-			{/* Иначе показываем наши запросы */}
+			{/* Иначе идём по массиву и выводим наши запросы */}
 			{!isLoading &&
 				!isLoadingOrgs &&
 				organizations.length !== 0 &&

@@ -7,6 +7,7 @@ import { useEffect } from 'react'
 import { useAuthMeQuery } from '../api/authApi'
 import { clearUser, setUser } from '../store/slice/userSlice'
 import { setAuth, setInitialized } from '../store/slice/authSlice'
+import BurgerMenu from '../components/ui/BurgerNavigation'
 
 const Layout = () => {
 	// Получаем флаг инициализации приложения из хранилища Redux Toolkit
@@ -62,10 +63,11 @@ const Layout = () => {
 	// Container это аналог div, который имеет уже определённые внешние и внутренние отступы.
 	// Box это тоже аналог div, но который лучше подходит для адаптивности
 	return (
-		<Container sx={{ padding: '20px 200px 30px 200px' }}>
+		<Container sx={{ py: '35px', px: { sm: '75px', xs: '10px' } }}>
 			<Box
 				sx={{
-					display: 'flex',
+					display: { md: 'flex', xs: 'none' },
+					flexDirection: { xs: 'column', md: 'row' },
 					justifyContent: 'space-between',
 					alignItems: 'center',
 				}}
@@ -73,6 +75,7 @@ const Layout = () => {
 				<img src={logo} alt='logo' />
 				<Navigation />
 			</Box>
+			<BurgerMenu />
 			{!isInitialized && isLoading && <h1>Загрузка...</h1>}
 			{isInitialized && <Outlet />}
 		</Container>

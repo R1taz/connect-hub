@@ -33,7 +33,7 @@ const ProfileRequestsButtons = ({ id, answer, refetch }: Props) => {
 	// Stack это компонент, который по умолчанию аналогичен div с display:flex и flexDirection: column
 
 	return (
-		<Stack>
+		<Stack sx={{ width: '100%' }}>
 			<Button
 				sx={{
 					margin: '5px',
@@ -41,6 +41,7 @@ const ProfileRequestsButtons = ({ id, answer, refetch }: Props) => {
 					borderRadius: '0px',
 					backgroundColor: 'black',
 					color: 'white',
+					width: { md: 'auto', xs: '100%' },
 				}}
 				onClick={handleApprove}
 			>
@@ -53,6 +54,7 @@ const ProfileRequestsButtons = ({ id, answer, refetch }: Props) => {
 					borderRadius: '0px',
 					backgroundColor: theme.palette.secondary.main,
 					color: 'white',
+					width: { md: 'auto', xs: '100%' },
 				}}
 			>
 				Отклонить

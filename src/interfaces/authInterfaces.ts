@@ -3,6 +3,7 @@ import { TypeOrganization } from './usersInterfaces'
 // Здесь лежат интерфейсы, которые относятся к запросам связанным с авторизацией
 
 export interface RequestRegistration {
+	name: string
 	username: string
 	password: string
 	email: string

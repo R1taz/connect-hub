@@ -16,14 +16,19 @@
 	font-style: normal;
 }
 
-.root {
+#root {
 	overflow-x: hidden;
+	position: relative;
+	margin: 0;
+	padding: 0;
 }
 
 body {
 	font-family: 'Cygre', sans-serif;
-	margin: 60;
 	overflow-x: hidden;
+	margin: 0;
+	padding: 0;
+	position: relative;
 }
 
 p {
@@ -36,6 +41,26 @@ p {
 	-webkit-filter: grayscale(1);
 	-moz-filter: grayscale(1);
 	-o-filter: grayscale(1);
+}
+
+.custom-balloon {
+	border-radius: 12px;
+	padding: 16px;
+	font-family: Arial, sans-serif;
+	width: 240px;
+}
+.custom-balloon__header {
+	font-size: 18px;
+	margin-bottom: 8px;
+	border-bottom: 1px solid #eee;
+	padding-bottom: 4px;
+}
+.custom-balloon__body {
+	font-size: 14px;
+	margin-bottom: 12px;
+}
+.custom-balloon__footer {
+	text-align: right;
 }
 
 body::-webkit-scrollbar {

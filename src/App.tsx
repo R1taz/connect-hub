@@ -20,6 +20,7 @@ function App() {
 		<Routes>
 			<Route path='/' element={<Layout />}>
 				<Route index element={<Main />} />
+				<Route path='/aboutAs' element={<h1>About us</h1>} />
 				<Route path='/registration' element={<RegistrationPage />} />
 				<Route path='/login' element={<AuthorizationPage />} />
 				<Route

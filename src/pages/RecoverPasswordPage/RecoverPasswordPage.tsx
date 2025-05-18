@@ -13,17 +13,24 @@ const RecoverPasswordPage = () => {
 
 	return (
 		<Grid2 container sx={{ mb: 10 }}>
-			<Grid2 size={6} sx={{ mt: '120px' }}>
-				<Typography variant='h3' sx={{ display: 'inline-block' }}>
-					ВОССТАНОВИТЬ
+			<Grid2
+				size={{ lg: 8, xs: 12 }}
+				sx={{ display: 'flex', alignItems: { xs: 'center', md: 'end' }, mt: '120px' }}
+			>
+				<Typography
+					variant='h3'
+					sx={{ display: 'inline-block', fontSize: { xs: '26px', md: '46px' } }}
+				>
+					ВОССТАНОВИТЬ ПАРОЛЬ
 				</Typography>
-				<ArrowOutwardRoundedIcon sx={{ marginLeft: 1, fontSize: '50px' }} />{' '}
-				<Typography variant='h3'>ПАРОЛЬ</Typography>
+				<ArrowOutwardRoundedIcon
+					sx={{ marginLeft: 1, fontSize: { xs: '40px', md: '65px', lg: '65px' } }}
+				/>
 			</Grid2>
 
-			<Grid2 size={6}></Grid2>
-			<Grid2 size={3}></Grid2>
-			<Grid2 size={4.7} sx={{ mt: 5 }}>
+			<Grid2 size={{ lg: 4, xs: 0 }}></Grid2>
+			<Grid2 size={{ md: 3, xs: 0 }}></Grid2>
+			<Grid2 size={{ md: 5, xs: 12 }} sx={{ mt: 5 }}>
 				<Typography sx={{ mb: 2 }}>
 					Укажите эл. почту, на которую зарегистрирован аккаунт, мы вышлем Ваши логин и пароль
 				</Typography>

@@ -13,19 +13,20 @@ const Navigation = () => {
 
 	// Достаём флаг инициализации из библиотеки Redux Toolkit
 	const isAuth = useAppSelector(state => state.authSlice.isAuth)
+	const acceptStatus = useAppSelector(state => state.userSlice.user?.user_info?.accept_status)
 
 	// Box это тоже аналог div, но который лучше подходит для адаптивности
 	// NavLink это аналог тега a. Отличие его в том, что он делает переход без перезагрузки страницы
 	return (
 		<Box sx={{ display: 'flex', alignItems: 'center' }}>
-			<NavLink to='/' className={styles.link}>
+			<NavLink to={acceptStatus ? '/map' : '/'} className={styles.link}>
 				Главная
 			</NavLink>
 
 			{location.pathname !== '/login' &&
 				location.pathname !== '/registration' &&
 				location.pathname !== '/contacts' && (
-					<NavLink to='/' className={styles.link}>
+					<NavLink to='/aboutAs' className={styles.link}>
 						О нас
 					</NavLink>
 				)}
@@ -37,10 +38,6 @@ const Navigation = () => {
 						Контакты
 					</NavLink>
 				)}
-
-			<NavLink to='/map' className={styles.link}>
-				Опоры
-			</NavLink>
 
 			{!isAuth && (
 				<NavLink to='/login' className={`${styles.entrance} ${styles.link}`}>

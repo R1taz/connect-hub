@@ -37,7 +37,7 @@ const ProfileRequestsElectricGrid = ({ type, organizations }: Props) => {
 			{/* Если загрузка, то показываем заголовок */}
 			{isLoading && <h1>Загрузка данных...</h1>}
 
-			{/* Иначе показываем наши запросы */}
+			{/* Идём по массиву и отрисовываем наши запросы */}
 			{!isLoading &&
 				requestPillars.map(requestPillar => {
 					// находим имя организации которая делает запрос

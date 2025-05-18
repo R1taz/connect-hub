@@ -13,16 +13,22 @@ const AboutUs = () => {
 
 	// Компонент CustomizedAccordions это наш дочерний компонент
 	return (
-		<Grid2 container sx={{ mt: 25 }}>
+		<Grid2 container sx={{ mt: { xs: 15, lg: 25 } }}>
 			<Grid2 size={12}>
-				<Typography sx={{ fontFamily: '"ActayWide", sans-serif' }} variant='h2'>
+				<Typography
+					sx={{
+						fontFamily: '"ActayWide", sans-serif',
+						fontSize: { xs: '32px', md: '46px' },
+					}}
+					variant='h2'
+				>
 					О НАС
 				</Typography>
 			</Grid2>
 
 			<Grid2 size={{ lg: 3, xs: 0 }}></Grid2>
 			<Grid2 size={{ lg: 7, xs: 12 }}>
-				<Typography sx={{ mt: 3 }}>
+				<Typography sx={{ mt: 3, fontSize: { xs: '20px', lg: '18px' } }}>
 					Мы обладаем богатым опытом и профессиональными знаниями в области электросетевой
 					инфраструктуры. Мы используем современное оборудование и методы, которые позволяют нам
 					эффективно решать самые сложные задачи.

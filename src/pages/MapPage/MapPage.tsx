@@ -69,7 +69,7 @@ const MapPage = () => {
 	return (
 		<>
 			<Title />
-			<Divider></Divider>
+			<Divider sx={{ mt: 3 }}></Divider>
 			<SubInformation />
 
 			{/* Если идёт загрузка линий или загрузка подключённых линий то отбражаем заголовок */}
@@ -90,7 +90,7 @@ const MapPage = () => {
 			<section>
 				{/* Если загрузка столбов есть, то отрисовываем заголовок */}
 				{isLoadingPillars && <h1>Данные загружаются...</h1>}
-				{/* Иначе выводим список столбов */}
+				{/* Иначе идём по массиву и отрисовываем наши столбы */}
 				{!isLoadingPillars &&
 					pillars.map(pillar => (
 						<article key={pillar.id}>

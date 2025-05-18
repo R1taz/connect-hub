@@ -10,14 +10,17 @@ const Title = () => {
 	return (
 		<Grid2 container sx={{ mt: '120px' }}>
 			<Grid2 size={12}>
-				<Typography variant='h1' sx={{ fontSize: { sm: '3rem', lg: '4.5rem' } }}>
+				<Typography variant='h1' sx={{ fontSize: { xs: '2.2rem', md: '3rem', lg: '4.5rem' } }}>
 					МЫ СЛЕДИМ ЗА КАЖДОЙ НИТЬЮ —
 				</Typography>
 			</Grid2>
 
 			<Grid2 size={3}></Grid2>
 			<Grid2 size={9}>
-				<Typography variant='h2' sx={{ fontSize: { sm: '1.7rem', lg: '3rem' } }}>
+				<Typography
+					variant='h2'
+					sx={{ mt: 1, fontSize: { xs: '1.2rem', md: '1.7rem', lg: '3rem' } }}
+				>
 					ВАША СВЯЗЬ ВСЕГДА В ПОРЯДКЕ!
 				</Typography>
 			</Grid2>
