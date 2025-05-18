@@ -167,7 +167,7 @@ const MapComponent = ({
 						left: '50%',
 						transform: 'translate(-50%, -50%)',
 						px: 10,
-						width: 500,
+						width: { sm: 450, xs: 300 },
 						height: 650,
 						bgcolor: 'white',
 						display: 'flex',

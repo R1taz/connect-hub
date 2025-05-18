@@ -18,7 +18,7 @@ export default function BurgerMenu() {
 	// Элементы, которые будут в "бургер меню" и их маршруты
 	const menuItems = [
 		{ label: 'Главная', to: isAuth ? '/map' : '/' },
-		{ label: 'О нас', to: '/aboutAs' },
+		{ label: 'О нас', to: '/aboutUs' },
 		{ label: 'Контакты', to: '/contacts' },
 		{ label: !isAuth ? 'Войти' : 'Профиль', to: !isAuth ? '/login' : '/profile' },
 	]

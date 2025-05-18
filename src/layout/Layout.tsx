@@ -63,7 +63,7 @@ const Layout = () => {
 	// Container это аналог div, который имеет уже определённые внешние и внутренние отступы.
 	// Box это тоже аналог div, но который лучше подходит для адаптивности
 	return (
-		<Container sx={{ py: '35px', px: { sm: '75px', xs: '10px' } }}>
+		<Container sx={{ py: '35px', px: { sm: '60px', xs: '10px' } }}>
 			<Box
 				sx={{
 					display: { md: 'flex', xs: 'none' },

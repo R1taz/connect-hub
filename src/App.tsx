@@ -8,6 +8,7 @@ import ContactsPage from './pages/ContactsPage/ContactsPage'
 import RecoverPasswordPage from './pages/RecoverPasswordPage/RecoverPasswordPage'
 import ProfilePage from './pages/ProfilePage/ProfilePage'
 import AuthProvider from './components/AuthProvider/AuthProvider'
+import AboutUs from './pages/AboutUs/AboutUs'
 
 // Routes - это просто компонент обёртка, для того, чтобы мы могли указывать много маршрутов
 // Route - это компонент, который в element принимает компонент, который будет отрисовываться
@@ -20,7 +21,7 @@ function App() {
 		<Routes>
 			<Route path='/' element={<Layout />}>
 				<Route index element={<Main />} />
-				<Route path='/aboutAs' element={<h1>About us</h1>} />
+				<Route path='/aboutUs' element={<AboutUs />} />
 				<Route path='/registration' element={<RegistrationPage />} />
 				<Route path='/login' element={<AuthorizationPage />} />
 				<Route

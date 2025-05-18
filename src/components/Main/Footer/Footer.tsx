@@ -2,10 +2,14 @@ import { Box, Grid2, Stack, Typography, useTheme } from '@mui/material'
 import logoSVG from '../../../assets/logo.svg'
 import styles from './styles.module.css'
 import DividerCustom from '../../ui/DividerCustom'
+import { NavLink } from 'react-router-dom'
+import { useAppSelector } from '../../../hooks/react-redux'
 
 const Footer = () => {
 	// Достаём объект темы из MaterialUI
 	const theme = useTheme()
+
+	const isAuth = useAppSelector(state => state.authSlice.isAuth)
 
 	// Grid2 это компонент из библиотеки MaterialUI
 	// он принимает size которая принимает значение столбцов в грид сетки
@@ -26,10 +30,10 @@ const Footer = () => {
 				<Grid2 size={4}>
 					<Typography sx={{ color: theme.palette.secondary.main }}>Навигация</Typography>
 
-					<Stack sx={{ mt: 2 }}>
-						<Typography>Главная</Typography>
-						<Typography>О нас</Typography>
-						<Typography>Контакты</Typography>
+					<Stack sx={{ mt: 2, gap: 2 }}>
+						<NavLink to={isAuth ? '/map' : '/'}>Главная</NavLink>
+						<NavLink to='/aboutUs'>О нас</NavLink>
+						<NavLink to='/contacts'>Контакты</NavLink>
 					</Stack>
 
 					<Typography sx={{ mt: 3, color: theme.palette.secondary.main }}>Адрес</Typography>
@@ -37,7 +41,7 @@ const Footer = () => {
 				</Grid2>
 
 				<Grid2 size={4}>
-					<Typography>XXX@info.com</Typography>
+					<Typography>connect-hub@info.com</Typography>
 					<Typography sx={{ mt: 1 }}>
 						Вы также можете связаться с нами по электронной почте!
 					</Typography>

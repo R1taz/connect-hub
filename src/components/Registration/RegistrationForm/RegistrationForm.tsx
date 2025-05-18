@@ -128,7 +128,7 @@ const RegistrationForm = () => {
 						<ErrorMessage name='username' component='div' />
 						<TextField
 							variant='standard'
-							type='text'
+							type='password'
 							name='password'
 							onChange={handleChange}
 							onBlur={handleBlur}
