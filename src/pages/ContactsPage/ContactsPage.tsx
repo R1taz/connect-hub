@@ -28,17 +28,19 @@ const ContactsPage = () => {
 				<Typography sx={{ fontSize: '18px', mb: 2, color: theme.palette.secondary.main }}>
 					Адрес
 				</Typography>
-				<Typography sx={{ mb: 6, fontSize: '18px' }}>Город, Улица, Дом</Typography>
+				<Typography sx={{ mb: 6, fontSize: '18px' }}>
+					г. Нижний Новгород, площадь Минина и Пожарского,{' '}
+				</Typography>
 
 				<Typography sx={{ mb: 2, fontSize: '18px', color: theme.palette.secondary.main }}>
 					Телефон обратной связи
 				</Typography>
-				<Typography sx={{ mb: 6, fontSize: '18px' }}>+7 (XXX) XXX-XX-XX</Typography>
+				<Typography sx={{ mb: 6, fontSize: '18px' }}>+7 (999) 752-52-52</Typography>
 
 				<Typography sx={{ mb: 2, fontSize: '18px', color: theme.palette.secondary.main }}>
 					Эл. почта
 				</Typography>
-				<Typography sx={{ mb: 2, fontSize: '18px' }}>@info.comX-XX-XX</Typography>
+				<Typography sx={{ mb: 2, fontSize: '18px' }}>connect-hub@info.comX-XX-XX</Typography>
 			</Grid2>
 
 			<Grid2 size={4}>

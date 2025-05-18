@@ -37,7 +37,7 @@ const Footer = () => {
 					</Stack>
 
 					<Typography sx={{ mt: 3, color: theme.palette.secondary.main }}>Адрес</Typography>
-					<Typography sx={{ mt: 1 }}>Город, Улица, Дом</Typography>
+					<Typography sx={{ mt: 1 }}>г. Нижний Новгород, площадь Минина и Пожарского, </Typography>
 				</Grid2>
 
 				<Grid2 size={4}>
